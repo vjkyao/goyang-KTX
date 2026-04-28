@@ -1,734 +1,398 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>고양고속차량지부 현장광장 시안</title>
-  <style>
-    :root {
-      --blue: #0b3f98;
-      --blue-dark: #072a66;
-      --orange: #f58200;
-      --bg: #f3f5f8;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --danger: #d9534f;
-      --safe: #198754;
-      --warn: #f59e0b;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고양고속지부 웹진 | 신년안전특집</title>
+    <!-- Google Analytics 4 — G-V718RSR7K7 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V718RSR7K7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-V718RSR7K7');
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.7; color: #333; background-color: #f4f6f8;
+        }
+        .header {
+            background: #ffffff; padding: 0.8rem 1rem; text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); position: sticky; top: 0;
+            z-index: 1000; border-bottom: 3px solid #00529b;
+        }
+        .header a {
+            text-decoration: none; color: inherit; display: flex;
+            align-items: center; justify-content: center; gap: 0.5rem;
+        }
+        .header-logo { max-width: 150px; height: auto; }
+        .header h1 {
+            font-size: 0.9rem; font-weight: 700; color: #2c3e50; white-space: nowrap;
+        }
+        .header h1 span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-left: 0.25rem;
+        }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-    }
+        /* --- 메인 이미지 섹션 스타일 --- */
+        .main-image-section {
+            position: relative;
+        }
 
-    .app {
-      max-width: 430px;
-      min-height: 100vh;
-      margin: 0 auto;
-      background: #fff;
-      box-shadow: 0 0 24px rgba(0,0,0,0.08);
-      position: relative;
-      overflow-x: hidden;
-      padding-bottom: 76px;
-    }
+        .main-image-overlay {
+            position: absolute;
+            inset: 0; 
+            display: flex;
+            flex-direction: column; 
+            justify-content: flex-end; 
+            align-items: center; 
+            background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 40%);
+            pointer-events: none; 
+        }
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(255,255,255,0.97);
-      backdrop-filter: blur(12px);
-      border-bottom: 3px solid var(--blue);
-      padding: 10px 14px 8px;
-    }
+        .overlay-text-bottom {
+            color: white;
+            font-size: 3.75rem;
+            font-weight: 900;
+            text-align: center;
+            padding: 0 1rem 2.5rem 1rem; 
+            text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9);
+            line-height: 1.2;
+            word-break: keep-all; 
+        }
 
-    .brand-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        @media (min-width: 768px) {
+            .overlay-text-bottom {
+                font-size: 5.25rem; 
+                padding-bottom: 3.5rem; 
+            }
+        }
+        /* --- --- */
 
-    .logo {
-      width: 138px;
-      height: auto;
-      flex: 0 0 auto;
-    }
+        .toc-section { padding: 2rem 1rem; background-color: #ffffff; }
+        .toc-section a { text-decoration: none; color: inherit; }
+        .article-card {
+            display: flex; gap: 1rem; padding: 1rem; margin-bottom: 1rem;
+            background: #f8f9fa; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer;
+            border-left: 5px solid #00529b;
+        }
+        .article-card:hover {
+            transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+        /* 새 기사 강조 스타일 */
+        .article-card-new {
+            border-left-color: #D9534F; /* 붉은색으로 강조 */
+        }
+        .article-card-new h3 {
+            color: #D9534F !important; /* 제목 붉은색 */
+        }
 
-    .brand-text {
-      flex: 1;
-      min-width: 0;
-    }
+        .article-thumbnail {
+            width: 90px; height: 90px; border-radius: 4px; object-fit: cover; flex-shrink: 0;
+        }
+        .article-content { flex: 1; }
+        .article-content h3 {
+            font-size: 1.1rem; font-weight: 700; color: #2c3e50; margin-bottom: 0.3rem; line-height: 1.4;
+        }
+        .article-content p {
+            font-size: 0.9rem; color: #555; line-height: 1.5; display: -webkit-box;
+            -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
 
-    .brand-text h1 {
-      font-size: 15px;
-      font-weight: 900;
-      color: var(--blue);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+        /* =========================
+           [추가] 국토부의 한심한 세트메뉴 (2개 접시) 애니메이션 블록
+           - 기존 양식(연재기사/집중기획 3부작)과 동일한 박스 스타일
+           - 클릭 시 두 접시 모두 날아가고, 선택한 기사로 이동
+        ========================= */
+        .setmenu-wrap { position: relative; overflow: hidden; }
+        .setmenu-grid { position: relative; z-index: 2; }
+        .setmenu-item { user-select: none; -webkit-tap-highlight-color: transparent; }
+        .setmenu-item img { will-change: transform, opacity; }
+        .setmenu-fly .setmenu-item.left  { animation: flyLeft  0.72s ease-in forwards; }
+        .setmenu-fly .setmenu-item.right { animation: flyRight 0.72s ease-in forwards; }
 
-    .brand-text p {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 1px;
-    }
+        @keyframes flyLeft {
+            0%   { transform: translate3d(0,0,0) rotate(0deg) scale(1); opacity: 1; filter: blur(0); }
+            45%  { transform: translate3d(-10px,-8px,0) rotate(-6deg) scale(1.03); opacity: 1; }
+            100% { transform: translate3d(-120vw,-40vh,0) rotate(-28deg) scale(0.92); opacity: 0; filter: blur(1px); }
+        }
+        @keyframes flyRight {
+            0%   { transform: translate3d(0,0,0) rotate(0deg) scale(1); opacity: 1; filter: blur(0); }
+            45%  { transform: translate3d(10px,-8px,0) rotate(6deg) scale(1.03); opacity: 1; }
+            100% { transform: translate3d(120vw,-40vh,0) rotate(28deg) scale(0.92); opacity: 0; filter: blur(1px); }
+        }
+        /* ========================= */
 
-    .menu-btn {
-      width: 36px;
-      height: 36px;
-      border: 0;
-      border-radius: 12px;
-      background: #eff6ff;
-      color: var(--blue);
-      font-size: 22px;
-      font-weight: 900;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 8px;
-      padding: 10px 14px 12px;
-      overflow-x: auto;
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      scrollbar-width: none;
-    }
-    .tabs::-webkit-scrollbar { display: none; }
-
-    .tab {
-      border: 1px solid #dbeafe;
-      background: #f8fbff;
-      color: var(--blue);
-      padding: 8px 11px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-    .tab.active { background: var(--blue); color: #fff; }
-
-    .screen { display: none; padding: 14px; }
-    .screen.active { display: block; }
-
-    .hero {
-      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-      color: #fff;
-      border-radius: 20px;
-      padding: 20px 18px;
-      margin-bottom: 14px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -36px;
-      bottom: -42px;
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      background: rgba(245,130,0,0.22);
-    }
-    .hero .eyebrow {
-      font-size: 12px;
-      font-weight: 900;
-      color: #ffda9b;
-      margin-bottom: 6px;
-    }
-    .hero h2 {
-      font-size: 22px;
-      font-weight: 950;
-      line-height: 1.23;
-      letter-spacing: -0.04em;
-      word-break: keep-all;
-    }
-    .hero p {
-      font-size: 13px;
-      margin-top: 9px;
-      color: rgba(255,255,255,0.86);
-      word-break: keep-all;
-    }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 18px 0 10px;
-    }
-    .section-title h3 { font-size: 16px; font-weight: 950; color: #111827; }
-    .section-title small { color: var(--muted); font-size: 12px; }
-
-    .status-grid { display: grid; gap: 10px; }
-    .status-card {
-      border: 1px solid var(--border);
-      background: var(--card);
-      border-radius: 16px;
-      padding: 13px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .status-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: flex-start;
-    }
-    .status-card h4 { font-size: 14px; font-weight: 900; line-height: 1.35; }
-    .badge {
-      font-size: 11px;
-      font-weight: 900;
-      padding: 5px 8px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
-    .badge.ing { background: #fff7ed; color: #c2410c; }
-    .badge.done { background: #ecfdf5; color: #047857; }
-    .badge.wait { background: #f1f5f9; color: #475569; }
-    .status-card p { margin-top: 8px; color: #4b5563; font-size: 12.8px; }
-    .status-meta { margin-top: 8px; font-size: 11.5px; color: var(--muted); }
-
-    .article-card {
-      display: flex;
-      gap: 12px;
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-left: 5px solid var(--blue);
-      border-radius: 16px;
-      padding: 11px;
-      margin-bottom: 10px;
-    }
-    .thumb {
-      width: 72px;
-      height: 72px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #dbeafe, #fef3c7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--blue);
-      font-weight: 950;
-      font-size: 18px;
-      flex: 0 0 auto;
-    }
-    .article-card h4 { font-size: 14px; line-height: 1.35; font-weight: 900; }
-    .article-card p { font-size: 12.5px; color: var(--muted); margin-top: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-    .feed-notice {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      border-radius: 16px;
-      padding: 12px;
-      font-size: 12.5px;
-      color: #70480f;
-      margin-bottom: 12px;
-    }
-
-    .composer {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-      margin-bottom: 12px;
-    }
-    .composer textarea {
-      width: 100%;
-      min-height: 82px;
-      border: 0;
-      outline: none;
-      resize: vertical;
-      font: inherit;
-      font-size: 15px;
-      line-height: 1.55;
-    }
-    .composer-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      border-top: 1px solid var(--border);
-      padding-top: 9px;
-      margin-top: 8px;
-    }
-    .small-btn {
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--blue);
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-size: 12px;
-      font-weight: 900;
-    }
-    .primary-btn {
-      border: 0;
-      background: var(--blue);
-      color: #fff;
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: 950;
-    }
-    .counter { font-size: 11.5px; color: var(--muted); }
-
-    .feed { display: grid; gap: 10px; }
-    .post {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 13px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-    }
-    .post-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 7px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-    .anon { font-weight: 900; color: var(--blue); }
-    .preview {
-      font-size: 14.5px;
-      line-height: 1.65;
-      white-space: pre-line;
-      word-break: keep-all;
-    }
-    .fade-preview {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .more {
-      border: 0;
-      background: transparent;
-      color: var(--blue);
-      font-weight: 950;
-      margin-top: 7px;
-      padding: 0;
-      font-size: 13px;
-    }
-    .post-imgs {
-      display: flex;
-      gap: 6px;
-      margin-top: 10px;
-      overflow-x: auto;
-    }
-    .post-imgs div {
-      width: 82px;
-      height: 82px;
-      flex: 0 0 auto;
-      border-radius: 12px;
-      background: #e5e7eb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #64748b;
-      font-size: 12px;
-      font-weight: 900;
-    }
-    .post-actions {
-      display: flex;
-      justify-content: space-between;
-      border-top: 1px solid var(--border);
-      margin-top: 12px;
-      padding-top: 9px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 850;
-    }
-    .post-actions button {
-      border: 0;
-      background: transparent;
-      color: inherit;
-      font: inherit;
-      font-weight: 850;
-    }
-
-    .locked {
-      background: #f8fafc;
-      border: 1px dashed #cbd5e1;
-      border-radius: 18px;
-      padding: 18px;
-      text-align: center;
-      margin-bottom: 14px;
-    }
-    .locked h3 { font-size: 17px; font-weight: 950; color: var(--blue); }
-    .locked p { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
-    .pass-row { display: flex; gap: 8px; margin-top: 12px; }
-    .pass-row input {
-      flex: 1;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 11px;
-      font-size: 15px;
-    }
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(430px, 100%);
-      background: rgba(255,255,255,0.98);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      z-index: 30;
-    }
-    .bottom-nav button {
-      border: 0;
-      background: transparent;
-      padding: 9px 2px 8px;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 850;
-    }
-    .bottom-nav button span { display: block; font-size: 19px; line-height: 1; margin-bottom: 2px; }
-    .bottom-nav button.active { color: var(--blue); }
-
-    .policy-box, .admin-box {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 14px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-    }
-    .policy-box h3, .admin-box h3 { font-size: 15px; font-weight: 950; margin-bottom: 8px; color: var(--blue); }
-    .policy-box p, .policy-box li, .admin-box p { font-size: 13px; color: #374151; margin-bottom: 7px; }
-    .policy-box ul { padding-left: 18px; }
-
-    .review-item {
-      border: 1px solid #fecaca;
-      background: #fff7f7;
-      border-radius: 16px;
-      padding: 12px;
-      margin-top: 10px;
-    }
-    .review-item strong { color: var(--danger); }
-    .review-buttons { display: flex; gap: 8px; margin-top: 10px; }
-    .review-buttons button { flex: 1; border: 0; border-radius: 12px; padding: 9px; font-weight: 900; }
-    .keep { background: #ecfdf5; color: #047857; }
-    .blind { background: #fff7ed; color: #c2410c; }
-    .delete { background: #fee2e2; color: #b91c1c; }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 76px;
-      transform: translateX(-50%);
-      width: min(400px, calc(100% - 28px));
-      background: #111827;
-      color: #fff;
-      padding: 11px 14px;
-      border-radius: 999px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 850;
-      opacity: 0;
-      pointer-events: none;
-      transition: 0.2s;
-      z-index: 50;
-    }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
-
-    @media (min-width: 431px) {
-      body { padding: 12px 0; }
-      .app { border-radius: 28px; min-height: calc(100vh - 24px); overflow: hidden; }
-    }
-  </style>
+        .footer {
+            background: #2c3e50; color: white; text-align: center;
+            padding: 2.5rem 1rem; margin-top: 2rem;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 1rem;
+            color: white;
+            text-align: center;
+        }
+        .footer a {
+            color: inherit; text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-<body>
-  <main class="app">
-    <header class="topbar">
-      <div class="brand-row">
-        <img src="logo.png" alt="전국철도노동조합 로고" class="logo" onerror="this.style.display='none'" />
-        <div class="brand-text">
-          <h1>고양고속차량지부</h1>
-          <p>현장광장 · 웹진 · 노사/산보위 진행판</p>
-        </div>
-        <button class="menu-btn" onclick="toast('메뉴 시안입니다')">≡</button>
-      </div>
-    </header>
+<body id="top">
+    <script src="components/header.js"></script>
 
-    <nav class="tabs" aria-label="상단 메뉴">
-      <button class="tab active" data-screen="home">홈</button>
-      <button class="tab" data-screen="feed">익명광장</button>
-      <button class="tab" data-screen="status">진행판</button>
-      <button class="tab" data-screen="webzine">웹진</button>
-      <button class="tab" data-screen="policy">운영원칙</button>
-    </nav>
-
-    <section id="home" class="screen active">
-      <div class="hero">
-        <div class="eyebrow">MOBILE FIRST MOCKUP</div>
-        <h2>현장의 말이 쌓이고,<br>지부의 대응이 보이는 곳</h2>
-        <p>웹진은 공식 논리로, 익명광장은 현장 목소리로, 진행판은 노사·산보위 안건의 흐름으로 운영하는 모바일 중심 지부 사이트 시안입니다.</p>
-      </div>
-
-      <div class="section-title"><h3>진행 중인 현안</h3><small>상태판</small></div>
-      <div class="status-grid">
-        <article class="status-card">
-          <div class="status-top"><h4>EMU 도입 관련 정원·숙소·교육 문제</h4><span class="badge ing">T/F 준비</span></div>
-          <p>신차종 도입에 따른 검수체계, 정원, 교육훈련, 숙소·후생복지 요구를 통합 관리하는 안건입니다.</p>
-          <div class="status-meta">최근 업데이트: 2026.04.24 · 다음 일정: 1차 협의 예정</div>
-        </article>
-        <article class="status-card">
-          <div class="status-top"><h4>경정비 차고 환풍·폭염 대응</h4><span class="badge wait">검토 중</span></div>
-          <p>하절기 작업환경과 환풍시설, 휴식권 보장 문제를 노사협의 및 산보위 안건으로 연계합니다.</p>
-          <div class="status-meta">최근 업데이트: 2026.04.22</div>
-        </article>
-      </div>
-
-      <div class="section-title"><h3>익명광장 미리보기</h3><small>최근 글</small></div>
-      <div class="feed" id="homeFeed"></div>
-
-      <div class="section-title"><h3>최신 웹진</h3><small>기획기사</small></div>
-      <article class="article-card" onclick="toast('실제 사이트에서는 웹진 기사로 이동합니다')">
-        <div class="thumb">EMU</div>
-        <div>
-          <h4>EMU의 시대, 우리는 무엇을 바꿔야 하는가</h4>
-          <p>기술의 변화는 차량만 바꾸지 않는다. 노동의 기준과 책임의 무게까지 바꾼다.</p>
-        </div>
-      </article>
+    <section class="main-image-section">
+        <img src="images/ctv0.jpg" alt="메인 이미지" class="w-full h-auto">
     </section>
 
-    <section id="feed" class="screen">
-      <div id="lockedBox" class="locked">
-        <h3>조합원 전용 익명광장</h3>
-        <p>시안용 비밀번호는 <strong>gy2026</strong> 입니다. 실제 운영 시 월별 공용 비밀번호로 변경합니다.</p>
-        <div class="pass-row">
-          <input id="passInput" type="password" placeholder="접속 비밀번호" />
-          <button class="primary-btn" onclick="unlockFeed()">입장</button>
-        </div>
-      </div>
+    <section class="toc-section">
 
-      <div id="feedArea" style="display:none">
-        <div class="feed-notice">
-          거친 표현과 조직 비판은 허용합니다. 다만 신상공개, 혐오·차별 선동, 음란물, 불법자료, 반복 괴롭힘은 블라인드 또는 삭제됩니다.
-        </div>
+        <h2 class="text-xl font-black text-center mb-6 text-gray-800">전체 기사 목록</h2>
 
-        <div class="composer">
-          <textarea id="postText" maxlength="2000" placeholder="현장에 한마디 남기기...\n제목 없이 바로 쓰면 됩니다. 목록에는 앞부분만 보이고, 길면 더보기로 열립니다."></textarea>
-          <div class="composer-footer">
-            <div>
-              <button class="small-btn" onclick="toast('시안에서는 실제 사진 업로드 대신 UI만 표시합니다')">＋ 사진</button>
-              <span class="counter" id="counter">0 / 2000</span>
+        <!-- =========================================================
+             [추가] 정중앙 볼드로 [국토부의 한심한 세트메뉴]
+             - 2편(접시 2개): CCTV / 1000명
+             - 클릭하면 "둘 다" 날아가고 이동
+             - 썸네일: images/safe0.png
+             - 배치: 썸네일 위 / 텍스트 아래
+        ========================================================== -->
+        <div class="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200 setmenu-wrap" id="setMenuBlock" data-setmenu>
+            <h3 class="text-lg font-bold text-center mb-4 text-gray-700">[국토부의 한심한 세트메뉴]</h3>
+
+            <div class="grid grid-cols-2 gap-3 md:gap-6 setmenu-grid">
+                <!-- 접시 1: CCTV -->
+                <a href="./article_260127_1.html"
+                   class="block group text-center setmenu-link"
+                   data-target="./article_260127_1.html"
+                   aria-label="CCTV 기사로 이동">
+                    <div class="setmenu-item left">
+                        <img src="images/cctv0.png"
+                             alt="CCTV 썸네일"
+                             class="w-full h-auto rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
+                        <div class="mt-2 px-1">
+                            <p class="text-gray-800 text-sm md:text-base font-semibold leading-tight">천리안의 CCTV</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- 접시 2: 1000명 -->
+                <a href="./article_260130_1.html"
+                   class="block group text-center setmenu-link"
+                   data-target="./article_260130_1.html"
+                   aria-label="1,000명 기사로 이동">
+                    <div class="setmenu-item right">
+                        <img src="images/safe0.png"
+                             alt="1,000명 썸네일"
+                             class="w-full h-auto rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
+                        <div class="mt-2 px-1">
+                            <p class="text-gray-800 text-sm md:text-base font-semibold leading-tight">1,000명 양병썰</p>
+                        </div>
+                    </div>
+                </a>
             </div>
-            <button class="primary-btn" onclick="addPost()">익명 등록</button>
-          </div>
+        </div>
+        <!-- ========================================================= -->
+
+        <!-- [New] 임협인준특보 1 -->
+        <a href="./article_260106_1.html">
+            <div class="article-card">
+                 <img src="images/VOTE01.jpg" alt="임협인준특보 1 썸네일" class="article-thumbnail">
+                <div class="article-content">
+                    <h3>[임협인준특보] 압도적 찬성으로 임금협약 체결</h3>
+                    <p>조합원 93.2% 참여, 97.76% 찬성… 성과급 정상화 합의 관철</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- [Reply] 임협인준특보 1에 대한 답글 -->
+        <a href="./article_260106_2.html">
+            <div class="article-card">
+                <div class="article-thumbnail flex items-center justify-center text-3xl font-black">↳</div>
+                <div class="article-content">
+                    <h3>잘 나가던 싸움은 왜 숫자의 게임이 되었는가</h3>
+                    <p>12월 23일 파업 유보 이후, 한 조합원의 질문</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- [New] 총파업 투쟁속보 2 -->
+        <a href="./article_251219_1.html">
+            <div class="article-card">
+                 <img src="images/ST_0.png" alt="총파업 투쟁속보 2 썸네일" class="article-thumbnail">
+                <div class="article-content">
+                    <h3>[총파업 투쟁속보 2] 기만적 ‘90% 꼼수’로는 끝낼 수 없습니다</h3>
+                    <p>“100% 정상화” 약속 파기 규탄… 12월 23일(화) 09시 무기한 총파업 돌입</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- [New] 총파업 투쟁속보 1 -->
+        <a href="./article_251218_1.html">
+            <div class="article-card">
+                 <img src="images/STR_1.png" alt="총파업 투쟁속보 1 썸네일" class="article-thumbnail">
+                <div class="article-content">
+                    <h3>[총파업 투쟁속보 1] 90%라는 기만적 꼼수, 철도 노동자의 자존심으로 박살 냅시다!</h3>
+                    <p>100% 약속을 파기한 기재부의 비겁한 지연 전술, 총력 투쟁으로 응징합시다</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- [New] 성명서 -->
+        <a href="./article_251219_2_statement.html">
+            <div class="article-card">
+                 <img src="images/stete.png" alt="성명서 썸네일" class="article-thumbnail">
+                <div class="article-content">
+                    <h3>[성명서] 약속을 어긴 것은 노동자가 아니라 정부입니다</h3>
+                    <p>성과급 정상화 총파업에 함께 분노하고 함께 연대해 주십시오</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- [New] 총파업투쟁 독려 칼럼 (최신) -->
+        <a href="./article_251208_1.html">
+        <div class="article-card">
+                 <img src="images/STR_6.jpg" alt="총파업 독려 칼럼 썸네일" class="article-thumbnail">
+                <div class="article-content">
+                    <h3>[총파업투쟁 독려 칼럼] 통합의 물꼬를 튼 위대한 단결, 그러나 우리의 멈춤은 아직 유효합니다</h3>
+                    <p>통합 로드맵 발표는 단결의 승리... 성과급 정상화 해결 전까지 긴장 놓지 말아야</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 0. 총파업 특보 -->
+        <a href="./article_251201_1.html">
+            <div class="article-card">
+                 <img src="images/psy08.jpg" alt="총파업 특보 썸네일" class="article-thumbnail">
+                <div class="article-content">
+                    <h3>[투쟁 속보] 행신역 선전전과 중식 총회, 뜨거웠던 열기를 용산으로!</h3>
+                    <p>고양고속차량지부, 한 달간의 현장 투쟁 마무리... 12월 2일 용산역 야간총회 총력 결집 호소</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 1. 신규 통상임금 기사 -->
+        <a href="./article_251107_1.html">
+            <div class="article-card">
+                 <img src="images/LSA_5.png" alt="통상임금 기사" class="article-thumbnail">
+                <div class="article-content">
+                    <h3>[심층기획] 통상임금 ‘시수 꼼수’, 법보다 유리한 단협을 이길 수 없다!</h3>
+                    <p>2024년 대법원 판결의 완전한 이행, 사측의 논리 왜곡을 바로잡는다.</p>
+                </div>
+            </div>
+        </a>
+
+        <!-- 2. 연재기사 3부작 (메인에서 목록으로 이동) -->
+        <div class="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <h3 class="text-lg font-bold text-center mb-1 text-gray-700">[연재기사 3부작]</h3>
+            <p class="text-center mb-4 text-gray-600 text-sm">단결투쟁, 우리의 권리는 누가 지켜주는가</p>
+            <div class="grid grid-cols-3 gap-2 md:gap-4">
+                <a href="article_250922_1.html" class="block group text-center">
+                    <div class="relative inline-block">
+                        <img src="images/WU1_0.png" alt="연재기사 1편" class="w-full h-auto rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
+                        <div class="absolute top-2 left-1/2 -translate-x-1/2 bg-black bg-opacity-60 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">1편</div>
+                    </div>
+                    <div class="mt-2 px-1"><p class="text-gray-800 text-xs md:text-sm font-semibold leading-tight">보이지 않는 전선</p></div>
+                </a>
+                <a href="article_251013_1.html" class="block group text-center">
+                    <div class="relative inline-block">
+                        <img src="images/WU4_0.png" alt="연재기사 2편" class="w-full h-auto rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
+                        <div class="absolute top-2 left-1/2 -translate-x-1/2 bg-black bg-opacity-60 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">2편</div>
+                    </div>
+                     <div class="mt-2 px-1"><p class="text-gray-800 text-xs md:text-sm font-semibold leading-tight">단결이 무너진 자리</p></div>
+                </a>
+                <a href="article_251013_2.html" class="block group text-center">
+                    <div class="relative inline-block">
+                        <img src="images/WU5_0.png" alt="연재기사 3편" class="w-full h-auto rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
+                        <div class="absolute top-2 left-1/2 -translate-x-1/2 bg-black bg-opacity-60 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">3편</div>
+                    </div>
+                     <div class="mt-2 px-1"><p class="text-gray-800 text-xs md:text-sm font-semibold leading-tight">단결 혹은 침묵</p></div>
+                </a>
+            </div>
         </div>
 
-        <div class="feed" id="feedList"></div>
-      </div>
-    </section>
-
-    <section id="status" class="screen">
-      <div class="section-title"><h3>노사·산보위 진행판</h3><small>공개 가능한 안건만 표시</small></div>
-      <div class="status-grid">
-        <article class="status-card">
-          <div class="status-top"><h4>EMU 도입 대응 T/F</h4><span class="badge ing">실무협의</span></div>
-          <p>정원, 교육훈련, 검수체계, 숙소·후생복지시설, 보수품·시험장비 확보를 묶어 관리합니다.</p>
-          <div class="status-meta">분류: T/F · 담당: 지부/관련 부서 · 공개범위: 조합원</div>
-        </article>
-        <article class="status-card">
-          <div class="status-top"><h4>근골격계 유해요인 대응</h4><span class="badge wait">결과 대기</span></div>
-          <p>작업환경 변화, 반복작업, 중량물 취급, 신차종 도입 영향을 함께 검토할 필요가 있습니다.</p>
-          <div class="status-meta">분류: 산보위 · 상태: 결과 정리 중</div>
-        </article>
-        <article class="status-card">
-          <div class="status-top"><h4>숙소 및 후생복지시설 확충</h4><span class="badge ing">장기과제</span></div>
-          <p>교대인력 증가와 정비물량 확대에 따른 생활조건 개선 요구입니다.</p>
-          <div class="status-meta">분류: 노사협의 · 상태: 관련 안건 연계</div>
-        </article>
-      </div>
-    </section>
-
-    <section id="webzine" class="screen">
-      <div class="section-title"><h3>웹진</h3><small>기존 HTML 자산 연결</small></div>
-      <article class="article-card">
-        <div class="thumb">NEW</div>
-        <div>
-          <h4>[기획] EMU의 시대, 우리는 무엇을 바꿔야 하는가</h4>
-          <p>공식 기사·기획·성명은 웹진에 보관하고, 의견은 기사별 토론방으로 연결합니다.</p>
+        <!-- 3. 집중기획 3부작 (목록 내 블록) -->
+        <div class="mb-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <h3 class="text-lg font-bold text-center mb-1 text-gray-700">[집중기획 3부작]</h3>
+            <p class="text-center mb-4 text-gray-600 text-sm">KTX-SRT 통합, 더 이상 미룰 수 없는 과제</p>
+            <div class="grid grid-cols-3 gap-2 md:gap-4">
+                <a href="article_250929_1.html" class="block group text-center">
+                    <div class="relative inline-block">
+                        <img src="images/WU1_0.png" alt="집중기획 1편" class="w-full h-auto rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
+                        <div class="absolute top-2 left-1/2 -translate-x-1/2 bg-black bg-opacity-50 text-white text-xs font-bold px-2 py-0.5 rounded-full">1편</div>
+                    </div>
+                    <div class="mt-2 px-1"><p class="text-gray-700 text-xs md:text-sm font-semibold leading-tight">경쟁 신화의 종말</p></div>
+                </a>
+                <a href="article_250929_2.html" class="block group text-center">
+                    <div class="relative inline-block">
+                        <img src="images/WU2_0.png" alt="집중기획 2편" class="w-full h-auto rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
+                        <div class="absolute top-2 left-1/2 -translate-x-1/2 bg-black bg-opacity-50 text-white text-xs font-bold px-2 py-0.5 rounded-full">2편</div>
+                    </div>
+                     <div class="mt-2 px-1"><p class="text-gray-700 text-xs md:text-sm font-semibold leading-tight">기울어진 운동장</p></div>
+                </a>
+                <a href="article_250929_3.html" class="block group text-center">
+                    <div class="relative inline-block">
+                        <img src="images/WU3_0.png" alt="집중기획 3편" class="w-full h-auto rounded-lg shadow-md group-hover:shadow-xl transition-shadow duration-300">
+                        <div class="absolute top-2 left-1/2 -translate-x-1/2 bg-black bg-opacity-50 text-white text-xs font-bold px-2 py-0.5 rounded-full">3편</div>
+                    </div>
+                     <div class="mt-2 px-1"><p class="text-gray-700 text-xs md:text-sm font-semibold leading-tight">분열의 대가</p></div>
+                </a>
+            </div>
         </div>
-      </article>
-      <article class="article-card">
-        <div class="thumb">3줄</div>
-        <div>
-          <h4>긴 기사 상단에는 3줄 요약을 배치</h4>
-          <p>읽을 사람은 길게 읽고, 안 읽는 사람도 핵심만 확인할 수 있도록 구성합니다.</p>
-        </div>
-      </article>
+
     </section>
 
-    <section id="policy" class="screen">
-      <div class="policy-box">
-        <h3>익명광장 운영 원칙</h3>
-        <p>이 공간은 조합원과 현장 구성원의 자유로운 의견 제시를 위한 익명 공간입니다.</p>
-        <ul>
-          <li>조직·정책·직책 수행에 대한 비판은 허용합니다.</li>
-          <li>음란물, 혐오·차별 선동, 신상공개, 불법자료, 반복 괴롭힘은 제한합니다.</li>
-          <li>신고 누적 게시물은 임시 블라인드 후 검토합니다.</li>
-          <li>파일 첨부는 제한하고, 동영상은 링크만 허용하는 구조를 권장합니다.</li>
-        </ul>
-      </div>
-      <div class="admin-box">
-        <h3>관리자 검토함 시안</h3>
-        <p>운영자가 모든 글을 읽지 않도록, 위험글만 검토 대기함으로 보낸다는 설계입니다.</p>
-        <div class="review-item">
-          <p><strong>자동판정:</strong> 실명·개인공격 의심</p>
-          <p><strong>추천조치:</strong> 임시 블라인드 후 운영자 2인 검토</p>
-          <p><strong>요약:</strong> 특정 직책자의 업무처리를 강하게 비판하는 글. 개인 식별 가능성이 있어 검토 필요.</p>
-          <div class="review-buttons">
-            <button class="keep" onclick="toast('유지 처리 시안')">유지</button>
-            <button class="blind" onclick="toast('블라인드 처리 시안')">블라인드</button>
-            <button class="delete" onclick="toast('삭제 처리 시안')">삭제</button>
-          </div>
-        </div>
-      </div>
-    </section>
+    <script src="components/footer.js"></script>
 
-    <nav class="bottom-nav" aria-label="하단 메뉴">
-      <button class="active" data-screen="home"><span>⌂</span>홈</button>
-      <button data-screen="feed"><span>●</span>광장</button>
-      <button data-screen="status"><span>▦</span>진행판</button>
-      <button data-screen="webzine"><span>▣</span>웹진</button>
-      <button data-screen="policy"><span>!</span>원칙</button>
-    </nav>
-  </main>
-  <div class="toast" id="toast"></div>
+    <!-- =========================================================
+         [추가] 세트메뉴 클릭 동작 + 리셋
+         - 어떤 접시를 클릭하든: 두 접시 모두 날아감
+         - 애니메이션 끝나기 직전에: 클릭한 링크로 이동
+         - 뒤로가기/목차로 복귀(pageshow) 시: 자동 리셋(메뉴 다시 보이도록)
+    ========================================================== -->
+    <script>
+        (function () {
+            const block = document.getElementById('setMenuBlock');
+            if (!block) return;
 
-  <script>
-    const initialPosts = [
-      {
-        id: '0424-17',
-        time: '방금 전',
-        text: 'EMU 들어오는 건 좋은데 교육, 숙소, 인력 얘기가 같이 안 나오면 결국 현장이 다 떠안는 거 아닌가요. 신차종 대응이라고 하지만 실제로는 사람 문제부터 봐야 할 것 같습니다.',
-        likes: 12,
-        comments: 3,
-        imgs: 0
-      },
-      {
-        id: '0424-16',
-        time: '8분 전',
-        text: '노사협의회 안건 진행상황이 한눈에 보이면 좋겠습니다. 지금은 누가 뭘 올렸고 어디까지 갔는지 너무 흩어져 있습니다. 진행판 생기면 자주 볼 것 같습니다.',
-        likes: 9,
-        comments: 2,
-        imgs: 0
-      },
-      {
-        id: '0424-15',
-        time: '21분 전',
-        text: '숙소 문제는 계속 나오는 얘긴데 인원이 늘어나면 더 심해질 겁니다. 신차종 도입 이야기할 때 숙소와 후생복지도 같이 묶어야 합니다. 사진도 올리고 싶은데 일단 시안이라 회색 박스로 표시합니다.',
-        likes: 6,
-        comments: 1,
-        imgs: 2
-      }
-    ];
+            const links = block.querySelectorAll('.setmenu-link');
+            let isRunning = false;
 
-    let posts = JSON.parse(localStorage.getItem('goyangFeedPosts') || 'null') || initialPosts;
+            function resetSetMenu() {
+                block.classList.remove('setmenu-fly');
+                isRunning = false;
+            }
 
-    function savePosts() {
-      localStorage.setItem('goyangFeedPosts', JSON.stringify(posts));
-    }
+            // 뒤로가기/앞으로가기(BFCache 복원 포함)에서 UI가 사라지지 않도록 리셋
+            window.addEventListener('pageshow', resetSetMenu);
 
-    function renderPosts() {
-      const feedList = document.getElementById('feedList');
-      const homeFeed = document.getElementById('homeFeed');
-      if (feedList) feedList.innerHTML = posts.map(postTemplate).join('');
-      if (homeFeed) homeFeed.innerHTML = posts.slice(0,2).map(postTemplate).join('');
-    }
+            links.forEach((a) => {
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (isRunning) return;
+                    isRunning = true;
 
-    function postTemplate(p) {
-      const needsMore = p.text.length > 120;
-      const imgs = p.imgs ? `<div class="post-imgs">${Array.from({length:p.imgs}).map((_,i)=>`<div>사진 ${i+1}</div>`).join('')}</div>` : '';
-      return `
-        <article class="post">
-          <div class="post-head"><span class="anon">익명 ${p.id}</span><span>${p.time}</span></div>
-          <div class="preview ${needsMore ? 'fade-preview' : ''}" id="post-${p.id}">${escapeHtml(p.text)}</div>
-          ${needsMore ? `<button class="more" onclick="toggleMore('${p.id}', this)">더보기</button>` : ''}
-          ${imgs}
-          <div class="post-actions">
-            <button onclick="toast('공감 처리 시안입니다')">공감 ${p.likes}</button>
-            <button onclick="toast('댓글 화면 시안입니다')">댓글 ${p.comments}</button>
-            <button onclick="toast('신고가 접수되면 누적 기준에 따라 임시 블라인드됩니다')">신고</button>
-          </div>
-        </article>`;
-    }
+                    const target = a.getAttribute('data-target') || a.getAttribute('href') || './';
+                    block.classList.add('setmenu-fly');
 
-    function toggleMore(id, btn) {
-      const el = document.getElementById(`post-${id}`);
-      if (!el) return;
-      el.classList.toggle('fade-preview');
-      btn.textContent = el.classList.contains('fade-preview') ? '더보기' : '접기';
-    }
-
-    function addPost() {
-      const text = document.getElementById('postText').value.trim();
-      if (!text) return toast('내용을 입력해 주십시오');
-      if (text.length > 2000) return toast('2,000자 이내로 작성해 주십시오');
-      if (/\b(주민번호|몰카|불법촬영|PDF공유|죽여버)/i.test(text)) {
-        return toast('시안: 금칙어 또는 위험 표현으로 검토 대기 처리됩니다');
-      }
-      const now = new Date();
-      const mmdd = String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0');
-      const next = String(posts.length + 11).padStart(2,'0');
-      posts.unshift({ id: `${mmdd}-${next}`, time: '방금 전', text, likes: 0, comments: 0, imgs: 0 });
-      document.getElementById('postText').value = '';
-      document.getElementById('counter').textContent = '0 / 2000';
-      savePosts();
-      renderPosts();
-      toast('익명 글이 등록되었습니다. 이 시안은 내 브라우저에만 저장됩니다');
-    }
-
-    function unlockFeed() {
-      const input = document.getElementById('passInput').value;
-      if (input !== 'gy2026') return toast('비밀번호가 다릅니다. 시안 비밀번호는 gy2026입니다');
-      document.getElementById('lockedBox').style.display = 'none';
-      document.getElementById('feedArea').style.display = 'block';
-      toast('익명광장 시안에 입장했습니다');
-    }
-
-    function showScreen(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.querySelectorAll('[data-screen]').forEach(b => b.classList.toggle('active', b.dataset.screen === id));
-      window.scrollTo({top:0, behavior:'smooth'});
-    }
-
-    document.querySelectorAll('[data-screen]').forEach(btn => {
-      btn.addEventListener('click', () => showScreen(btn.dataset.screen));
-    });
-
-    const textarea = document.getElementById('postText');
-    if (textarea) {
-      textarea.addEventListener('input', () => {
-        document.getElementById('counter').textContent = `${textarea.value.length} / 2000`;
-      });
-    }
-
-    function escapeHtml(str) {
-      return str.replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-    }
-
-    function toast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2300);
-    }
-
-    renderPosts();
-  </script>
+                    // 애니메이션(0.72s)과 타이밍을 맞춤
+                    window.setTimeout(() => {
+                        window.location.href = target;
+                    }, 680);
+                }, { passive: false });
+            });
+        })();
+    </script>
 </body>
 </html>
