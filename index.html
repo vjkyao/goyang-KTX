@@ -1,734 +1,839 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>고양고속차량지부 현장광장 시안</title>
-  <style>
-    :root {
-      --blue: #0b3f98;
-      --blue-dark: #072a66;
-      --orange: #f58200;
-      --bg: #f3f5f8;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --danger: #d9534f;
-      --safe: #198754;
-      --warn: #f59e0b;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>고양고속차량지부 · 현장광장 v4</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --b:#00529b;--bd:#003d75;--bl:#e8f2fc;--bll:#f0f7ff;
+  --r:#c0392b;--rl:#fdf0ef;
+  --g:#1a7a45;--gl:#edfaf3;
+  --o:#e07b00;--ol:#fff8ec;
+  --teal:#0e7490;--teal-l:#f0fafa;
+  --purple:#6d28d9;--purple-l:#f5f3ff;
+  --sl:#f3f6fa;--border:#e2e8f2;
+  --t1:#0f1c2e;--t2:#3d5068;--t3:#8fa0b4;
+  --white:#fff;--bg:#eef1f6;
+  --sh:0 2px 12px rgba(0,82,155,.09);
+  --sh2:0 6px 28px rgba(0,82,155,.14);
+  --r8:8px;--r12:12px;--r16:16px;--r20:20px;--rpill:999px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--t1);}
+button,input,textarea,select{font-family:inherit;}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-    }
+.shell{
+  max-width:400px;width:100%;min-height:100vh;
+  margin:0 auto;background:var(--bg);
+  display:flex;flex-direction:column;
+  box-shadow:0 0 60px rgba(0,0,0,.22);
+  position:relative;overflow:hidden;
+}
 
-    .app {
-      max-width: 430px;
-      min-height: 100vh;
-      margin: 0 auto;
-      background: #fff;
-      box-shadow: 0 0 24px rgba(0,0,0,0.08);
-      position: relative;
-      overflow-x: hidden;
-      padding-bottom: 76px;
-    }
+/* ── TOPBAR ── */
+.topbar{background:var(--b);padding:12px 14px 0;position:sticky;top:0;z-index:200;box-shadow:0 2px 10px rgba(0,60,130,.25);}
+.tb-row{display:flex;align-items:center;gap:10px;padding-bottom:10px;}
+.tb-logo{width:32px;height:32px;background:rgba(255,255,255,.18);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 auto;}
+.tb-info{flex:1;}
+.tb-info h1{font-size:14.5px;font-weight:900;color:#fff;letter-spacing:-.03em;}
+.tb-info p{font-size:10.5px;color:rgba(255,255,255,.65);margin-top:1px;}
+.tb-menu{width:34px;height:34px;background:rgba(255,255,255,.15);border:0;border-radius:10px;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.tabnav{display:flex;gap:5px;padding:0 12px 10px;overflow-x:auto;scrollbar-width:none;}
+.tabnav::-webkit-scrollbar{display:none;}
+.tn{border:1.5px solid rgba(255,255,255,.28);background:transparent;color:rgba(255,255,255,.68);padding:6px 12px;border-radius:var(--rpill);font-size:12.5px;font-weight:700;white-space:nowrap;cursor:pointer;transition:.15s all;flex:0 0 auto;}
+.tn.on{background:#fff;color:var(--b);border-color:#fff;}
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: rgba(255,255,255,0.97);
-      backdrop-filter: blur(12px);
-      border-bottom: 3px solid var(--blue);
-      padding: 10px 14px 8px;
-    }
+/* ── SCREENS ── */
+.scr{display:none;flex-direction:column;gap:10px;padding:12px 12px 80px;flex:1;}
+.scr.on{display:flex;}
 
-    .brand-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+/* ── 내부 서브탭 (제보·진행판 / 나눔·제안 공용) ── */
+.subtab-bar{
+  display:flex;background:var(--white);border-radius:var(--r12);
+  padding:4px;gap:4px;box-shadow:var(--sh);border:1px solid var(--border);
+}
+.stab{
+  flex:1;border:0;padding:9px 0;border-radius:var(--r8);
+  font-size:13px;font-weight:700;color:var(--t3);cursor:pointer;
+  transition:.15s all;background:transparent;
+}
+.stab.on{background:var(--b);color:#fff;}
+.sub-pane{display:none;flex-direction:column;gap:10px;}
+.sub-pane.on{display:flex;}
 
-    .logo {
-      width: 138px;
-      height: auto;
-      flex: 0 0 auto;
-    }
+/* ── HERO ── */
+.hero{background:linear-gradient(128deg,var(--bd) 0%,var(--b) 55%,#1a6fb5 100%);border-radius:var(--r20);padding:18px;position:relative;overflow:hidden;box-shadow:var(--sh2);}
+.hero::before{content:"";position:absolute;top:-24px;right:-24px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(230,160,0,.3),transparent 68%);}
+.hero-badge{display:inline-block;background:var(--o);color:#fff;font-size:10.5px;font-weight:900;padding:3px 9px;border-radius:var(--rpill);margin-bottom:8px;letter-spacing:.02em;}
+.hero h2{font-size:20px;font-weight:900;color:#fff;line-height:1.25;letter-spacing:-.035em;word-break:keep-all;}
+.hero p{font-size:12px;color:rgba(255,255,255,.78);margin-top:7px;line-height:1.65;word-break:keep-all;}
+.hero-btns{display:flex;gap:7px;margin-top:13px;flex-wrap:wrap;}
+.hbtn{border:1.5px solid rgba(255,255,255,.35);background:rgba(255,255,255,.15);color:#fff;font-size:12px;font-weight:700;padding:7px 13px;border-radius:var(--rpill);cursor:pointer;}
+.hbtn.primary{background:#fff;color:var(--b);border-color:#fff;}
 
-    .brand-text {
-      flex: 1;
-      min-width: 0;
-    }
+/* ── QUICK LINKS ── */
+.qlinks{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.qlink{background:var(--white);border:1px solid var(--border);border-radius:var(--r12);padding:11px 6px;text-align:center;cursor:pointer;box-shadow:var(--sh);display:flex;flex-direction:column;align-items:center;gap:5px;transition:.15s transform;}
+.qlink:active{transform:scale(.97);}
+.qlink-ico{font-size:22px;line-height:1;}
+.qlink-lbl{font-size:11px;font-weight:700;color:var(--b);}
 
-    .brand-text h1 {
-      font-size: 15px;
-      font-weight: 900;
-      color: var(--blue);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+/* ── SECTION HDR ── */
+.sh{display:flex;justify-content:space-between;align-items:center;margin:2px 0;}
+.sh h3{font-size:15px;font-weight:900;color:var(--t1);}
+.sh-more{background:0;border:0;font-size:12px;font-weight:700;color:var(--b);cursor:pointer;}
 
-    .brand-text p {
-      font-size: 11px;
-      color: var(--muted);
-      margin-top: 1px;
-    }
+/* ── LIVE BAR ── */
+.live{background:#fff5f5;border:1px solid #f9c7c5;border-radius:var(--r8);padding:8px 11px;display:flex;align-items:center;gap:7px;font-size:12px;color:#8b1c1c;font-weight:700;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--r);flex:0 0 auto;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.45;transform:scale(1.5);}}
 
-    .menu-btn {
-      width: 36px;
-      height: 36px;
-      border: 0;
-      border-radius: 12px;
-      background: #eff6ff;
-      color: var(--blue);
-      font-size: 22px;
-      font-weight: 900;
-    }
+/* ── ISSUE STRIP ── */
+.istrip{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;padding:2px 0 4px;}
+.istrip::-webkit-scrollbar{display:none;}
+.icard{flex:0 0 210px;background:var(--white);border-radius:var(--r16);padding:13px;box-shadow:var(--sh);border:1px solid var(--border);}
+.icard-top{display:flex;justify-content:space-between;align-items:flex-start;gap:7px;margin-bottom:6px;}
+.icard h4{font-size:13px;font-weight:900;line-height:1.4;word-break:keep-all;}
+.badge{font-size:10.5px;font-weight:900;padding:3.5px 8px;border-radius:var(--rpill);white-space:nowrap;}
+.b-ing{background:#fff0e8;color:#b94a00;}
+.b-wait{background:var(--bl);color:var(--bd);}
+.b-done{background:var(--gl);color:var(--g);}
+.b-long{background:var(--ol);color:#7a4e00;}
+.b-new{background:#fdf4ff;color:var(--purple);}
+.icard-meta{font-size:11px;color:var(--t3);margin-top:5px;}
+.pbar{height:4px;background:var(--border);border-radius:var(--rpill);overflow:hidden;margin-top:8px;}
+.pbar-fill{height:100%;background:linear-gradient(90deg,var(--b),#5aabf0);border-radius:var(--rpill);}
 
-    .tabs {
-      display: flex;
-      gap: 8px;
-      padding: 10px 14px 12px;
-      overflow-x: auto;
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      scrollbar-width: none;
-    }
-    .tabs::-webkit-scrollbar { display: none; }
+/* ── FEED MINI ── */
+.fmini{background:var(--white);border-radius:var(--r12);padding:12px;box-shadow:var(--sh);border:1px solid var(--border);cursor:pointer;display:flex;flex-direction:column;gap:6px;}
+.fmini-head{display:flex;justify-content:space-between;font-size:11.5px;}
+.anon{font-weight:900;color:var(--b);}
+.fmini-body{font-size:13.5px;line-height:1.65;color:var(--t1);word-break:keep-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.fmini-foot{display:flex;gap:9px;font-size:11.5px;color:var(--t3);font-weight:700;}
 
-    .tab {
-      border: 1px solid #dbeafe;
-      background: #f8fbff;
-      color: var(--blue);
-      padding: 8px 11px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 800;
-      white-space: nowrap;
-    }
-    .tab.active { background: var(--blue); color: #fff; }
+/* ── WEBZINE CARD ── */
+.wzcard{display:flex;gap:11px;background:var(--white);border-radius:var(--r12);padding:11px;box-shadow:var(--sh);border:1px solid var(--border);border-left:4px solid var(--b);cursor:pointer;}
+.wzcard.new{border-left-color:var(--r);}
+.wzthumb{width:66px;height:66px;border-radius:10px;background:linear-gradient(135deg,var(--bl),#fef9ec);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:900;color:var(--b);flex:0 0 auto;text-align:center;line-height:1.3;}
+.wzcard h4{font-size:13.5px;font-weight:900;line-height:1.4;word-break:keep-all;}
+.wzcard p{font-size:12px;color:var(--t2);margin-top:4px;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.wzmeta{font-size:11px;color:var(--t3);margin-top:5px;}
 
-    .screen { display: none; padding: 14px; }
-    .screen.active { display: block; }
+/* ── 익명광장 ── */
+.lock{background:var(--white);border-radius:var(--r20);padding:22px 18px;box-shadow:var(--sh2);text-align:center;border:2px dashed var(--border);}
+.lock-ico{font-size:40px;margin-bottom:10px;}
+.lock h3{font-size:17px;font-weight:900;color:var(--b);margin-bottom:6px;}
+.lock p{font-size:12.5px;color:var(--t2);line-height:1.7;margin-bottom:14px;}
+.lock em{background:var(--bl);border-radius:var(--r8);padding:2px 8px;font-style:normal;font-weight:900;color:var(--b);}
+.prow{display:flex;gap:8px;}
+.pin{flex:1;border:1.5px solid var(--border);border-radius:var(--r12);padding:11px 13px;font-size:14px;background:var(--sl);outline:none;transition:.15s border;}
+.pin:focus{border-color:var(--b);}
+.lock-hint{font-size:11px;color:var(--t3);margin-top:8px;}
+.notice{background:var(--ol);border:1px solid #fde3a7;border-radius:var(--r12);padding:10px 12px;font-size:12px;color:#6b4200;line-height:1.65;}
 
-    .hero {
-      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-      color: #fff;
-      border-radius: 20px;
-      padding: 20px 18px;
-      margin-bottom: 14px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -36px;
-      bottom: -42px;
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      background: rgba(245,130,0,0.22);
-    }
-    .hero .eyebrow {
-      font-size: 12px;
-      font-weight: 900;
-      color: #ffda9b;
-      margin-bottom: 6px;
-    }
-    .hero h2 {
-      font-size: 22px;
-      font-weight: 950;
-      line-height: 1.23;
-      letter-spacing: -0.04em;
-      word-break: keep-all;
-    }
-    .hero p {
-      font-size: 13px;
-      margin-top: 9px;
-      color: rgba(255,255,255,0.86);
-      word-break: keep-all;
-    }
+/* ── COMPOSER ── */
+.composer{background:var(--white);border-radius:var(--r16);padding:13px;box-shadow:var(--sh);border:1px solid var(--border);}
+.comp-top{display:flex;align-items:flex-start;gap:9px;margin-bottom:10px;}
+.avatar{width:34px;height:34px;background:var(--bl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:var(--b);flex:0 0 auto;}
+.comp-top textarea{flex:1;border:0;outline:none;resize:none;font:inherit;font-size:14px;line-height:1.7;color:var(--t1);min-height:72px;background:transparent;}
+.comp-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:9px;gap:8px;}
+.comp-left{display:flex;align-items:center;gap:7px;}
+.charct{font-size:11.5px;color:var(--t3);}
+.img-prev{display:flex;gap:6px;margin:8px 0 0;flex-wrap:wrap;}
+.img-prev-item{width:70px;height:70px;border-radius:10px;background:var(--sl);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--t3);font-weight:700;position:relative;cursor:pointer;}
+.img-prev-item .rm{position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:var(--r);color:#fff;border-radius:50%;font-size:11px;display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid #fff;}
+.add-photo{width:70px;height:70px;border-radius:10px;border:2px dashed var(--border);background:var(--sl);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10px;color:var(--t3);font-weight:700;cursor:pointer;}
 
-    .section-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 18px 0 10px;
-    }
-    .section-title h3 { font-size: 16px; font-weight: 950; color: #111827; }
-    .section-title small { color: var(--muted); font-size: 12px; }
+/* ── POSTS ── */
+.post{background:var(--white);border-radius:var(--r16);padding:13px;box-shadow:var(--sh);border:1px solid var(--border);}
+.post-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.post-time{font-size:11.5px;color:var(--t3);}
+.post-body{font-size:13.5px;line-height:1.75;color:var(--t1);word-break:keep-all;white-space:pre-line;}
+.post-body.cl{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.more{background:0;border:0;color:var(--b);font-weight:900;font-size:12.5px;margin-top:5px;cursor:pointer;padding:0;}
+.post-imgs{display:flex;gap:6px;margin-top:9px;overflow-x:auto;scrollbar-width:none;}
+.pimg{width:78px;height:78px;flex:0 0 auto;border-radius:10px;background:var(--sl);display:flex;align-items:center;justify-content:center;color:var(--t3);font-size:11px;font-weight:700;}
+.post-foot{display:flex;justify-content:space-between;border-top:1px solid var(--border);margin-top:11px;padding-top:8px;}
+.pfbtn{background:0;border:0;font:inherit;font-size:12.5px;font-weight:700;color:var(--t3);cursor:pointer;display:flex;align-items:center;gap:4px;}
+.pfbtn.liked{color:var(--r);}
+.ai-ok{font-size:10px;padding:2px 7px;border-radius:var(--rpill);background:var(--gl);color:var(--g);font-weight:900;margin-left:6px;}
+.ai-warn{font-size:10px;padding:2px 7px;border-radius:var(--rpill);background:var(--rl);color:var(--r);font-weight:900;margin-left:6px;}
+.blinded-box{background:var(--sl);border:1px solid var(--border);border-radius:var(--r12);padding:12px;text-align:center;color:var(--t3);font-size:13px;font-weight:700;}
 
-    .status-grid { display: grid; gap: 10px; }
-    .status-card {
-      border: 1px solid var(--border);
-      background: var(--card);
-      border-radius: 16px;
-      padding: 13px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .status-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: flex-start;
-    }
-    .status-card h4 { font-size: 14px; font-weight: 900; line-height: 1.35; }
-    .badge {
-      font-size: 11px;
-      font-weight: 900;
-      padding: 5px 8px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
-    .badge.ing { background: #fff7ed; color: #c2410c; }
-    .badge.done { background: #ecfdf5; color: #047857; }
-    .badge.wait { background: #f1f5f9; color: #475569; }
-    .status-card p { margin-top: 8px; color: #4b5563; font-size: 12.8px; }
-    .status-meta { margin-top: 8px; font-size: 11.5px; color: var(--muted); }
+/* ── 제보·진행판 ── */
+/* 제보 섹션 칼라 포인트: 청록 */
+.report-hero{
+  background:linear-gradient(128deg,#0a5260,var(--teal));
+  border-radius:var(--r20);padding:16px;color:#fff;box-shadow:var(--sh2);
+  position:relative;overflow:hidden;
+}
+.report-hero::after{content:"📣";position:absolute;right:12px;bottom:-8px;font-size:64px;opacity:.12;}
+.report-hero h4{font-size:14px;font-weight:900;margin-bottom:5px;}
+.report-hero p{font-size:12px;opacity:.85;line-height:1.6;}
 
-    .article-card {
-      display: flex;
-      gap: 12px;
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-left: 5px solid var(--blue);
-      border-radius: 16px;
-      padding: 11px;
-      margin-bottom: 10px;
-    }
-    .thumb {
-      width: 72px;
-      height: 72px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #dbeafe, #fef3c7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--blue);
-      font-weight: 950;
-      font-size: 18px;
-      flex: 0 0 auto;
-    }
-    .article-card h4 { font-size: 14px; line-height: 1.35; font-weight: 900; }
-    .article-card p { font-size: 12.5px; color: var(--muted); margin-top: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.form-card{background:var(--white);border-radius:var(--r16);padding:14px;box-shadow:var(--sh);border:1px solid var(--border);}
+.form-card h3{font-size:14px;font-weight:900;color:var(--b);margin-bottom:10px;}
+.frow{margin-bottom:10px;}
+.frow label{display:block;font-size:12px;font-weight:700;color:var(--t2);margin-bottom:5px;}
+.frow select,.frow input,.frow textarea{width:100%;border:1.5px solid var(--border);border-radius:var(--r8);padding:10px 12px;font:inherit;font-size:13.5px;background:var(--sl);outline:none;transition:.15s border;}
+.frow select:focus,.frow input:focus,.frow textarea:focus{border-color:var(--b);}
+.frow textarea{min-height:90px;resize:vertical;}
+.radio-row{display:flex;gap:10px;flex-wrap:wrap;}
+.radio-row label{display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;}
+.photo-add{border:2px dashed var(--border);border-radius:var(--r12);padding:14px;text-align:center;cursor:pointer;font-size:12.5px;color:var(--t3);background:var(--sl);}
+.photo-add .ph{font-size:22px;margin-bottom:3px;}
 
-    .feed-notice {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      border-radius: 16px;
-      padding: 12px;
-      font-size: 12.5px;
-      color: #70480f;
-      margin-bottom: 12px;
-    }
+/* 진행판 */
+.status-hero{
+  background:linear-gradient(128deg,var(--bd),var(--b));
+  border-radius:var(--r20);padding:16px;color:#fff;box-shadow:var(--sh2);position:relative;overflow:hidden;
+}
+.status-hero::after{content:"EMU";position:absolute;right:-4px;bottom:-14px;font-size:72px;font-weight:900;opacity:.07;letter-spacing:-4px;}
+.status-hero h4{font-size:14px;font-weight:900;margin-bottom:6px;}
+.status-hero p{font-size:12px;opacity:.85;line-height:1.65;}
+.etags{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;}
+.etag{background:rgba(255,255,255,.18);border-radius:var(--rpill);padding:4px 9px;font-size:11px;font-weight:700;color:#fff;}
+.eprog{margin-top:12px;}
+.epbar{height:5px;background:rgba(255,255,255,.22);border-radius:var(--rpill);overflow:hidden;}
+.epfill{height:100%;background:#fff;border-radius:var(--rpill);}
+.eplbl{display:flex;justify-content:space-between;font-size:10.5px;opacity:.68;margin-top:4px;}
 
-    .composer {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-      margin-bottom: 12px;
-    }
-    .composer textarea {
-      width: 100%;
-      min-height: 82px;
-      border: 0;
-      outline: none;
-      resize: vertical;
-      font: inherit;
-      font-size: 15px;
-      line-height: 1.55;
-    }
-    .composer-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      border-top: 1px solid var(--border);
-      padding-top: 9px;
-      margin-top: 8px;
-    }
-    .small-btn {
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--blue);
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-size: 12px;
-      font-weight: 900;
-    }
-    .primary-btn {
-      border: 0;
-      background: var(--blue);
-      color: #fff;
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: 950;
-    }
-    .counter { font-size: 11.5px; color: var(--muted); }
+.sboard{display:flex;flex-direction:column;gap:9px;}
+.sitem{background:var(--white);border-radius:var(--r16);padding:13px;box-shadow:var(--sh);border:1px solid var(--border);}
+.sit-top{display:flex;justify-content:space-between;align-items:flex-start;gap:9px;margin-bottom:7px;}
+.sitem h4{font-size:14px;font-weight:900;line-height:1.4;word-break:keep-all;}
+.sitem p{font-size:13px;color:var(--t2);line-height:1.65;}
+.smeta{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;font-size:11.5px;color:var(--t3);}
+.stag{background:var(--sl);border-radius:var(--rpill);padding:3px 8px;font-weight:700;}
 
-    .feed { display: grid; gap: 10px; }
-    .post {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 13px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-    }
-    .post-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 7px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-    .anon { font-weight: 900; color: var(--blue); }
-    .preview {
-      font-size: 14.5px;
-      line-height: 1.65;
-      white-space: pre-line;
-      word-break: keep-all;
-    }
-    .fade-preview {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .more {
-      border: 0;
-      background: transparent;
-      color: var(--blue);
-      font-weight: 950;
-      margin-top: 7px;
-      padding: 0;
-      font-size: 13px;
-    }
-    .post-imgs {
-      display: flex;
-      gap: 6px;
-      margin-top: 10px;
-      overflow-x: auto;
-    }
-    .post-imgs div {
-      width: 82px;
-      height: 82px;
-      flex: 0 0 auto;
-      border-radius: 12px;
-      background: #e5e7eb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #64748b;
-      font-size: 12px;
-      font-weight: 900;
-    }
-    .post-actions {
-      display: flex;
-      justify-content: space-between;
-      border-top: 1px solid var(--border);
-      margin-top: 12px;
-      padding-top: 9px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 850;
-    }
-    .post-actions button {
-      border: 0;
-      background: transparent;
-      color: inherit;
-      font: inherit;
-      font-weight: 850;
-    }
+/* ── 자료실 ── */
+.archive-cat{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.acat{background:var(--white);border-radius:var(--r12);padding:12px;box-shadow:var(--sh);border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;gap:8px;}
+.acat-ico{font-size:22px;flex:0 0 auto;}
+.acat-txt h4{font-size:13px;font-weight:900;}
+.acat-txt p{font-size:11px;color:var(--t3);margin-top:1px;}
+.afile{display:flex;align-items:center;gap:10px;background:var(--white);border-radius:var(--r12);padding:11px 12px;box-shadow:var(--sh);border:1px solid var(--border);cursor:pointer;}
+.afile-ico{width:36px;height:36px;border-radius:9px;background:var(--bl);display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 auto;}
+.afile h4{font-size:13px;font-weight:700;line-height:1.4;}
+.afile p{font-size:11px;color:var(--t3);margin-top:2px;}
 
-    .locked {
-      background: #f8fafc;
-      border: 1px dashed #cbd5e1;
-      border-radius: 18px;
-      padding: 18px;
-      text-align: center;
-      margin-bottom: 14px;
-    }
-    .locked h3 { font-size: 17px; font-weight: 950; color: var(--blue); }
-    .locked p { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
-    .pass-row { display: flex; gap: 8px; margin-top: 12px; }
-    .pass-row input {
-      flex: 1;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 11px;
-      font-size: 15px;
-    }
+/* ── 나눔터 ── */
+.share-hero{
+  background:linear-gradient(128deg,#065f46,#059669);
+  border-radius:var(--r20);padding:16px;color:#fff;box-shadow:var(--sh2);
+  position:relative;overflow:hidden;
+}
+.share-hero::after{content:"🌱";position:absolute;right:14px;bottom:-4px;font-size:60px;opacity:.18;}
+.share-hero h4{font-size:14px;font-weight:900;margin-bottom:5px;}
+.share-hero p{font-size:12px;opacity:.88;line-height:1.65;}
+.share-rule{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--r12);padding:10px 12px;font-size:12px;color:#14532d;line-height:1.7;}
+.share-rule strong{font-weight:900;}
 
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(430px, 100%);
-      background: rgba(255,255,255,0.98);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      z-index: 30;
-    }
-    .bottom-nav button {
-      border: 0;
-      background: transparent;
-      padding: 9px 2px 8px;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 850;
-    }
-    .bottom-nav button span { display: block; font-size: 19px; line-height: 1; margin-bottom: 2px; }
-    .bottom-nav button.active { color: var(--blue); }
+/* 나눔 카드 그리드 */
+.share-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;}
+.share-card{
+  background:var(--white);border-radius:var(--r16);padding:12px;
+  box-shadow:var(--sh);border:1px solid var(--border);cursor:pointer;
+  transition:.15s transform;
+}
+.share-card:active{transform:scale(.97);}
+.share-img{
+  width:100%;height:80px;border-radius:var(--r8);
+  background:linear-gradient(135deg,var(--sl),var(--bl));
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;margin-bottom:8px;
+}
+.share-card h4{font-size:13px;font-weight:900;line-height:1.35;word-break:keep-all;margin-bottom:4px;}
+.share-card p{font-size:11.5px;color:var(--t2);line-height:1.5;}
+.share-tag{display:inline-block;background:var(--gl);color:var(--g);font-size:10px;font-weight:900;padding:2px 7px;border-radius:var(--rpill);margin-bottom:5px;}
+.share-tag.ex{background:#fef9ec;color:#92400e;}
+.share-meta{font-size:11px;color:var(--t3);margin-top:5px;}
 
-    .policy-box, .admin-box {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 14px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-    }
-    .policy-box h3, .admin-box h3 { font-size: 15px; font-weight: 950; margin-bottom: 8px; color: var(--blue); }
-    .policy-box p, .policy-box li, .admin-box p { font-size: 13px; color: #374151; margin-bottom: 7px; }
-    .policy-box ul { padding-left: 18px; }
+.share-compose{
+  background:var(--white);border:2px dashed #bbf7d0;border-radius:var(--r16);
+  padding:14px;text-align:center;cursor:pointer;
+}
+.share-compose .sc-ico{font-size:28px;margin-bottom:6px;}
+.share-compose h4{font-size:13.5px;font-weight:900;color:var(--g);}
+.share-compose p{font-size:12px;color:var(--t3);margin-top:3px;}
 
-    .review-item {
-      border: 1px solid #fecaca;
-      background: #fff7f7;
-      border-radius: 16px;
-      padding: 12px;
-      margin-top: 10px;
-    }
-    .review-item strong { color: var(--danger); }
-    .review-buttons { display: flex; gap: 8px; margin-top: 10px; }
-    .review-buttons button { flex: 1; border: 0; border-radius: 12px; padding: 9px; font-weight: 900; }
-    .keep { background: #ecfdf5; color: #047857; }
-    .blind { background: #fff7ed; color: #c2410c; }
-    .delete { background: #fee2e2; color: #b91c1c; }
+/* ── 개선제안 ── */
+.suggest-hero{
+  background:linear-gradient(128deg,#4c1d95,var(--purple));
+  border-radius:var(--r20);padding:16px;color:#fff;box-shadow:var(--sh2);
+  position:relative;overflow:hidden;
+}
+.suggest-hero::after{content:"💡";position:absolute;right:14px;bottom:-4px;font-size:60px;opacity:.15;}
+.suggest-hero h4{font-size:14px;font-weight:900;margin-bottom:5px;}
+.suggest-hero p{font-size:12px;opacity:.88;line-height:1.65;}
 
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 76px;
-      transform: translateX(-50%);
-      width: min(400px, calc(100% - 28px));
-      background: #111827;
-      color: #fff;
-      padding: 11px 14px;
-      border-radius: 999px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 850;
-      opacity: 0;
-      pointer-events: none;
-      transition: 0.2s;
-      z-index: 50;
-    }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(-4px); }
+.suggest-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.sgcard{background:var(--white);border-radius:var(--r12);padding:12px;box-shadow:var(--sh);border:1px solid var(--border);cursor:pointer;text-align:center;}
+.sgcard .sg-ico{font-size:26px;margin-bottom:6px;}
+.sgcard h4{font-size:13px;font-weight:900;color:var(--b);}
+.sgcard p{font-size:11px;color:var(--t3);margin-top:3px;line-height:1.5;}
 
-    @media (min-width: 431px) {
-      body { padding: 12px 0; }
-      .app { border-radius: 28px; min-height: calc(100vh - 24px); overflow: hidden; }
-    }
-  </style>
+/* ── 버튼 ── */
+.btn{border:0;border-radius:var(--rpill);padding:9px 18px;font-size:13px;font-weight:900;cursor:pointer;transition:.12s all;}
+.btn-p{background:var(--b);color:#fff;}
+.btn-p:active{background:var(--bd);}
+.btn-g{background:var(--g);color:#fff;}
+.btn-sm{padding:7px 14px;font-size:12.5px;}
+
+/* ── BOTTOM NAV ── */
+.bnav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:min(400px,100%);background:rgba(255,255,255,.97);
+  backdrop-filter:blur(14px);border-top:1px solid var(--border);
+  display:grid;grid-template-columns:repeat(6,1fr);z-index:300;
+}
+.nb{background:0;border:0;padding:8px 2px 6px;color:var(--t3);font-size:10px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:.12s color;}
+.nb .ni{font-size:19px;line-height:1;}
+.nb.on{color:var(--b);}
+/* 나눔·제안 탭은 초록 활성 */
+.nb.on.green{color:var(--g);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%) translateY(4px);background:#0f1c2e;color:#fff;padding:10px 18px;border-radius:var(--rpill);font-size:13px;font-weight:700;opacity:0;pointer-events:none;transition:.2s all;z-index:999;white-space:nowrap;max-width:360px;text-align:center;}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(min-width:440px){
+  body{padding:14px 0;background:#c8d4e6;}
+  .shell{border-radius:32px;overflow:hidden;min-height:auto;}
+  .bnav{border-radius:0 0 32px 32px;}
+}
+</style>
 </head>
 <body>
-  <main class="app">
-    <header class="topbar">
-      <div class="brand-row">
-        <img src="logo.png" alt="전국철도노동조합 로고" class="logo" onerror="this.style.display='none'" />
-        <div class="brand-text">
-          <h1>고양고속차량지부</h1>
-          <p>현장광장 · 웹진 · 노사/산보위 진행판</p>
-        </div>
-        <button class="menu-btn" onclick="toast('메뉴 시안입니다')">≡</button>
+<div class="shell">
+
+<!-- ── TOPBAR ── -->
+<header class="topbar">
+  <div class="tb-row">
+    <div class="tb-logo">🚄</div>
+    <div class="tb-info">
+      <h1>고양고속차량지부</h1>
+      <p>현장광장 · 웹진 · 제보·진행판 · 나눔·제안</p>
+    </div>
+    <button class="tb-menu" onclick="T('메뉴 시안입니다')">≡</button>
+  </div>
+  <nav class="tabnav">
+    <button class="tn on" data-s="home">홈</button>
+    <button class="tn" data-s="feed">익명광장</button>
+    <button class="tn" data-s="rp">제보·진행판</button>
+    <button class="tn" data-s="webzine">웹진</button>
+    <button class="tn" data-s="archive">자료실</button>
+    <button class="tn" data-s="ns">나눔·제안</button>
+  </nav>
+</header>
+
+<!-- ═══ 홈 ═══ -->
+<section id="home" class="scr on">
+
+  <div class="hero">
+    <div class="hero-badge">2026 신춘특집</div>
+    <h2>현장의 말이 쌓이고,<br>지부의 대응이 보인다</h2>
+    <p>익명으로 말하고, 진행판으로 확인하고, 웹진으로 읽는<br>모바일 중심 지부 소통 플랫폼</p>
+    <div class="hero-btns">
+      <button class="hbtn primary" onclick="go('feed')">익명광장 →</button>
+      <button class="hbtn" onclick="go('rp');showSub('rp','status-pane')">진행판 보기</button>
+    </div>
+  </div>
+
+  <div class="qlinks">
+    <div class="qlink" onclick="go('feed')"><div class="qlink-ico">💬</div><div class="qlink-lbl">익명광장</div></div>
+    <div class="qlink" onclick="go('rp');showSub('rp','report-pane')"><div class="qlink-ico">📣</div><div class="qlink-lbl">현장제보</div></div>
+    <div class="qlink" onclick="go('rp');showSub('rp','status-pane')"><div class="qlink-ico">📋</div><div class="qlink-lbl">진행 확인</div></div>
+    <div class="qlink" onclick="go('ns');showSub('ns','share-pane')"><div class="qlink-ico">🌱</div><div class="qlink-lbl">나눔터</div></div>
+  </div>
+
+  <div class="live"><span class="dot"></span>지금 익명광장에 글이 올라오고 있습니다 · 오늘 23건</div>
+
+  <div class="sh"><h3>진행 중인 현안</h3><button class="sh-more" onclick="go('rp');showSub('rp','status-pane')">전체보기</button></div>
+  <div class="istrip">
+    <div class="icard">
+      <div class="icard-top"><h4>EMU 도입 대응 T/F</h4><span class="badge b-ing">T/F 준비</span></div>
+      <div class="pbar"><div class="pbar-fill" style="width:22%"></div></div>
+      <div class="icard-meta">다음: 1차 협의 예정</div>
+    </div>
+    <div class="icard">
+      <div class="icard-top"><h4>경정비 차고 환풍·폭염</h4><span class="badge b-wait">검토중</span></div>
+      <div class="pbar"><div class="pbar-fill" style="width:35%"></div></div>
+      <div class="icard-meta">하절기 노사협의 연계</div>
+    </div>
+    <div class="icard">
+      <div class="icard-top"><h4>근골격계 유해요인</h4><span class="badge b-wait">결과대기</span></div>
+      <div class="pbar"><div class="pbar-fill" style="width:65%"></div></div>
+      <div class="icard-meta">산보위 보고 예정</div>
+    </div>
+    <div class="icard">
+      <div class="icard-top"><h4>숙소·후생복지 확충</h4><span class="badge b-long">장기과제</span></div>
+      <div class="pbar"><div class="pbar-fill" style="width:18%"></div></div>
+      <div class="icard-meta">EMU 증원 연계 논의</div>
+    </div>
+  </div>
+
+  <div class="sh"><h3>익명광장 최근 글</h3><button class="sh-more" onclick="go('feed')">더보기</button></div>
+  <div id="homePreview" style="display:flex;flex-direction:column;gap:8px;"></div>
+
+  <div class="sh"><h3>최신 웹진</h3><button class="sh-more" onclick="go('webzine')">전체목록</button></div>
+  <article class="wzcard new" onclick="T('기사 페이지로 이동')">
+    <div class="wzthumb" style="background:linear-gradient(135deg,#fff0f0,#fef9ec);color:var(--r);">신춘<br>기획</div>
+    <div>
+      <h4>[기획] EMU의 시대, 우리는 무엇을 바꿔야 하는가</h4>
+      <p>기술의 변화는 차량만 바꾸지 않는다. 노동의 기준과 책임의 무게까지 바꾼다.</p>
+      <div class="wzmeta">2026.04.24 · 신춘특집</div>
+    </div>
+  </article>
+
+  <!-- 나눔터 미리보기 -->
+  <div class="sh"><h3>나눔터 최근 글</h3><button class="sh-more" onclick="go('ns');showSub('ns','share-pane')">더보기</button></div>
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div class="fmini" onclick="go('ns');showSub('ns','share-pane')">
+      <div class="fmini-head"><span style="font-weight:900;color:var(--g);">🌱 나눔</span><span style="color:var(--t3);font-size:11.5px;">2분 전</span></div>
+      <div class="fmini-body">하복 상의 105 사이즈 새것처럼 깨끗합니다. 필요하신 분 연락 주세요.</div>
+      <div class="fmini-foot"><span>관심 3</span><span>💬 1</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 익명광장 ═══ -->
+<section id="feed" class="scr">
+  <div class="lock" id="lockBox">
+    <div class="lock-ico">🔒</div>
+    <h3>조합원 전용 익명광장</h3>
+    <p>매월 조합원 단톡방을 통해 이번 달 접속 비밀번호를 공유합니다.<br><br><em>시안 비밀번호: gy2026</em></p>
+    <div class="prow">
+      <input class="pin" id="passIn" type="password" placeholder="비밀번호 입력"/>
+      <button class="btn btn-p" onclick="unlock()">입장</button>
+    </div>
+    <p class="lock-hint">비밀번호는 조합원 단톡방 공지를 확인해 주십시오</p>
+  </div>
+  <div id="feedArea" style="display:none;flex-direction:column;gap:10px;">
+    <div class="notice">📌 <strong>익명광장 이용 원칙</strong><br>조직·정책·직책 수행 비판은 허용합니다. 음란물·혐오·신상공개·불법자료·반복괴롭힘은 블라인드 또는 삭제됩니다.</div>
+    <div class="composer">
+      <div class="comp-top">
+        <div class="avatar">?</div>
+        <textarea id="postTxt" maxlength="2000" placeholder="현장에 한마디 남기기&#10;제목 없이 바로 쓰면 됩니다."></textarea>
       </div>
-    </header>
-
-    <nav class="tabs" aria-label="상단 메뉴">
-      <button class="tab active" data-screen="home">홈</button>
-      <button class="tab" data-screen="feed">익명광장</button>
-      <button class="tab" data-screen="status">진행판</button>
-      <button class="tab" data-screen="webzine">웹진</button>
-      <button class="tab" data-screen="policy">운영원칙</button>
-    </nav>
-
-    <section id="home" class="screen active">
-      <div class="hero">
-        <div class="eyebrow">MOBILE FIRST MOCKUP</div>
-        <h2>현장의 말이 쌓이고,<br>지부의 대응이 보이는 곳</h2>
-        <p>웹진은 공식 논리로, 익명광장은 현장 목소리로, 진행판은 노사·산보위 안건의 흐름으로 운영하는 모바일 중심 지부 사이트 시안입니다.</p>
+      <div class="img-prev" id="imgPrev">
+        <div class="add-photo" onclick="addPhotoMock()"><div>🖼</div>사진 추가</div>
       </div>
-
-      <div class="section-title"><h3>진행 중인 현안</h3><small>상태판</small></div>
-      <div class="status-grid">
-        <article class="status-card">
-          <div class="status-top"><h4>EMU 도입 관련 정원·숙소·교육 문제</h4><span class="badge ing">T/F 준비</span></div>
-          <p>신차종 도입에 따른 검수체계, 정원, 교육훈련, 숙소·후생복지 요구를 통합 관리하는 안건입니다.</p>
-          <div class="status-meta">최근 업데이트: 2026.04.24 · 다음 일정: 1차 협의 예정</div>
-        </article>
-        <article class="status-card">
-          <div class="status-top"><h4>경정비 차고 환풍·폭염 대응</h4><span class="badge wait">검토 중</span></div>
-          <p>하절기 작업환경과 환풍시설, 휴식권 보장 문제를 노사협의 및 산보위 안건으로 연계합니다.</p>
-          <div class="status-meta">최근 업데이트: 2026.04.22</div>
-        </article>
+      <div class="comp-bottom">
+        <div class="comp-left"><span class="charct" id="charCt">0 / 2000</span></div>
+        <button class="btn btn-p btn-sm" onclick="submitPost()">익명 등록</button>
       </div>
+    </div>
+    <div style="background:var(--bll);border-radius:var(--r8);padding:9px 12px;font-size:12px;color:var(--bd);">🤖 <strong>AI 자동검열 작동 중</strong> · 게시 전 유해성 판정</div>
+    <div id="feedList" style="display:flex;flex-direction:column;gap:9px;"></div>
+  </div>
+</section>
 
-      <div class="section-title"><h3>익명광장 미리보기</h3><small>최근 글</small></div>
-      <div class="feed" id="homeFeed"></div>
+<!-- ═══ 제보·진행판 (통합) ═══ -->
+<section id="rp" class="scr">
 
-      <div class="section-title"><h3>최신 웹진</h3><small>기획기사</small></div>
-      <article class="article-card" onclick="toast('실제 사이트에서는 웹진 기사로 이동합니다')">
-        <div class="thumb">EMU</div>
-        <div>
-          <h4>EMU의 시대, 우리는 무엇을 바꿔야 하는가</h4>
-          <p>기술의 변화는 차량만 바꾸지 않는다. 노동의 기준과 책임의 무게까지 바꾼다.</p>
-        </div>
-      </article>
-    </section>
+  <!-- 서브탭 바 -->
+  <div class="subtab-bar">
+    <button class="stab on" onclick="showSub('rp','report-pane',this)">📣 제보하기</button>
+    <button class="stab" onclick="showSub('rp','status-pane',this)">📋 진행 확인</button>
+  </div>
 
-    <section id="feed" class="screen">
-      <div id="lockedBox" class="locked">
-        <h3>조합원 전용 익명광장</h3>
-        <p>시안용 비밀번호는 <strong>gy2026</strong> 입니다. 실제 운영 시 월별 공용 비밀번호로 변경합니다.</p>
-        <div class="pass-row">
-          <input id="passInput" type="password" placeholder="접속 비밀번호" />
-          <button class="primary-btn" onclick="unlockFeed()">입장</button>
-        </div>
+  <!-- 제보하기 서브패널 -->
+  <div class="sub-pane on" id="report-pane">
+    <div class="report-hero">
+      <h4>현장제보 · 안건 접수</h4>
+      <p>노사협의 또는 산보위 안건화를 염두에 둔 제보창입니다.<br>비공개로 접수되며 운영자가 검토 후 진행판으로 이관합니다.</p>
+    </div>
+    <div class="form-card">
+      <h3>제보 접수</h3>
+      <div class="frow">
+        <label>분류 *</label>
+        <select>
+          <option value="">선택해 주세요</option>
+          <option>노사협의 안건</option>
+          <option>산업안전보건위원회</option>
+          <option>복지 · 숙소 · 식당</option>
+          <option>EMU · 신차종</option>
+          <option>작업환경</option>
+          <option>기타</option>
+        </select>
       </div>
-
-      <div id="feedArea" style="display:none">
-        <div class="feed-notice">
-          거친 표현과 조직 비판은 허용합니다. 다만 신상공개, 혐오·차별 선동, 음란물, 불법자료, 반복 괴롭힘은 블라인드 또는 삭제됩니다.
-        </div>
-
-        <div class="composer">
-          <textarea id="postText" maxlength="2000" placeholder="현장에 한마디 남기기...\n제목 없이 바로 쓰면 됩니다. 목록에는 앞부분만 보이고, 길면 더보기로 열립니다."></textarea>
-          <div class="composer-footer">
-            <div>
-              <button class="small-btn" onclick="toast('시안에서는 실제 사진 업로드 대신 UI만 표시합니다')">＋ 사진</button>
-              <span class="counter" id="counter">0 / 2000</span>
-            </div>
-            <button class="primary-btn" onclick="addPost()">익명 등록</button>
-          </div>
-        </div>
-
-        <div class="feed" id="feedList"></div>
+      <div class="frow">
+        <label>제목 *</label>
+        <input type="text" placeholder="제목을 입력해 주세요"/>
       </div>
-    </section>
-
-    <section id="status" class="screen">
-      <div class="section-title"><h3>노사·산보위 진행판</h3><small>공개 가능한 안건만 표시</small></div>
-      <div class="status-grid">
-        <article class="status-card">
-          <div class="status-top"><h4>EMU 도입 대응 T/F</h4><span class="badge ing">실무협의</span></div>
-          <p>정원, 교육훈련, 검수체계, 숙소·후생복지시설, 보수품·시험장비 확보를 묶어 관리합니다.</p>
-          <div class="status-meta">분류: T/F · 담당: 지부/관련 부서 · 공개범위: 조합원</div>
-        </article>
-        <article class="status-card">
-          <div class="status-top"><h4>근골격계 유해요인 대응</h4><span class="badge wait">결과 대기</span></div>
-          <p>작업환경 변화, 반복작업, 중량물 취급, 신차종 도입 영향을 함께 검토할 필요가 있습니다.</p>
-          <div class="status-meta">분류: 산보위 · 상태: 결과 정리 중</div>
-        </article>
-        <article class="status-card">
-          <div class="status-top"><h4>숙소 및 후생복지시설 확충</h4><span class="badge ing">장기과제</span></div>
-          <p>교대인력 증가와 정비물량 확대에 따른 생활조건 개선 요구입니다.</p>
-          <div class="status-meta">분류: 노사협의 · 상태: 관련 안건 연계</div>
-        </article>
+      <div class="frow">
+        <label>위치 또는 부서 (선택)</label>
+        <input type="text" placeholder="예: 경정비 차고 3번선"/>
       </div>
-    </section>
-
-    <section id="webzine" class="screen">
-      <div class="section-title"><h3>웹진</h3><small>기존 HTML 자산 연결</small></div>
-      <article class="article-card">
-        <div class="thumb">NEW</div>
-        <div>
-          <h4>[기획] EMU의 시대, 우리는 무엇을 바꿔야 하는가</h4>
-          <p>공식 기사·기획·성명은 웹진에 보관하고, 의견은 기사별 토론방으로 연결합니다.</p>
-        </div>
-      </article>
-      <article class="article-card">
-        <div class="thumb">3줄</div>
-        <div>
-          <h4>긴 기사 상단에는 3줄 요약을 배치</h4>
-          <p>읽을 사람은 길게 읽고, 안 읽는 사람도 핵심만 확인할 수 있도록 구성합니다.</p>
-        </div>
-      </article>
-    </section>
-
-    <section id="policy" class="screen">
-      <div class="policy-box">
-        <h3>익명광장 운영 원칙</h3>
-        <p>이 공간은 조합원과 현장 구성원의 자유로운 의견 제시를 위한 익명 공간입니다.</p>
-        <ul>
-          <li>조직·정책·직책 수행에 대한 비판은 허용합니다.</li>
-          <li>음란물, 혐오·차별 선동, 신상공개, 불법자료, 반복 괴롭힘은 제한합니다.</li>
-          <li>신고 누적 게시물은 임시 블라인드 후 검토합니다.</li>
-          <li>파일 첨부는 제한하고, 동영상은 링크만 허용하는 구조를 권장합니다.</li>
-        </ul>
+      <div class="frow">
+        <label>내용 *</label>
+        <textarea placeholder="구체적으로 작성할수록 안건화에 도움이 됩니다."></textarea>
       </div>
-      <div class="admin-box">
-        <h3>관리자 검토함 시안</h3>
-        <p>운영자가 모든 글을 읽지 않도록, 위험글만 검토 대기함으로 보낸다는 설계입니다.</p>
-        <div class="review-item">
-          <p><strong>자동판정:</strong> 실명·개인공격 의심</p>
-          <p><strong>추천조치:</strong> 임시 블라인드 후 운영자 2인 검토</p>
-          <p><strong>요약:</strong> 특정 직책자의 업무처리를 강하게 비판하는 글. 개인 식별 가능성이 있어 검토 필요.</p>
-          <div class="review-buttons">
-            <button class="keep" onclick="toast('유지 처리 시안')">유지</button>
-            <button class="blind" onclick="toast('블라인드 처리 시안')">블라인드</button>
-            <button class="delete" onclick="toast('삭제 처리 시안')">삭제</button>
-          </div>
+      <div class="frow">
+        <label>사진 첨부 (선택 · 최대 3장)</label>
+        <div class="photo-add" onclick="T('사진 첨부 기능 시안입니다')">
+          <div class="ph">📷</div>사진을 눌러서 추가하세요 (자동 압축)
         </div>
       </div>
-    </section>
+      <div class="frow">
+        <label>공개 가능 여부 *</label>
+        <div class="radio-row">
+          <label><input type="radio" name="pub" value="y"/> 공개 가능</label>
+          <label><input type="radio" name="pub" value="n" checked/> 비공개 (기본)</label>
+        </div>
+      </div>
+      <div class="frow">
+        <label>연락처 (선택)</label>
+        <input type="text" placeholder="카카오톡 ID 또는 전화번호"/>
+      </div>
+      <button class="btn btn-p" style="width:100%;margin-top:4px;" onclick="T('제보가 접수되었습니다. 운영자가 검토 후 진행판으로 이관합니다')">제보 접수 →</button>
+    </div>
+  </div>
 
-    <nav class="bottom-nav" aria-label="하단 메뉴">
-      <button class="active" data-screen="home"><span>⌂</span>홈</button>
-      <button data-screen="feed"><span>●</span>광장</button>
-      <button data-screen="status"><span>▦</span>진행판</button>
-      <button data-screen="webzine"><span>▣</span>웹진</button>
-      <button data-screen="policy"><span>!</span>원칙</button>
-    </nav>
-  </main>
-  <div class="toast" id="toast"></div>
+  <!-- 진행 확인 서브패널 -->
+  <div class="sub-pane" id="status-pane">
+    <div class="status-hero">
+      <h4>🚄 EMU 도입 대응 T/F · 핵심 현안</h4>
+      <p>정원·교육훈련·검수체계·숙소·보수품·시험장비 확보를 묶어 관리합니다.</p>
+      <div class="etags">
+        <span class="etag">T/F 준비</span><span class="etag">정원 미확보</span>
+        <span class="etag">교육체계</span><span class="etag">숙소</span><span class="etag">보수품</span>
+      </div>
+      <div class="eprog">
+        <div class="epbar"><div class="epfill" style="width:22%"></div></div>
+        <div class="eplbl"><span>안건접수</span><span>1차 협의</span><span>완료</span></div>
+      </div>
+    </div>
 
-  <script>
-    const initialPosts = [
-      {
-        id: '0424-17',
-        time: '방금 전',
-        text: 'EMU 들어오는 건 좋은데 교육, 숙소, 인력 얘기가 같이 안 나오면 결국 현장이 다 떠안는 거 아닌가요. 신차종 대응이라고 하지만 실제로는 사람 문제부터 봐야 할 것 같습니다.',
-        likes: 12,
-        comments: 3,
-        imgs: 0
-      },
-      {
-        id: '0424-16',
-        time: '8분 전',
-        text: '노사협의회 안건 진행상황이 한눈에 보이면 좋겠습니다. 지금은 누가 뭘 올렸고 어디까지 갔는지 너무 흩어져 있습니다. 진행판 생기면 자주 볼 것 같습니다.',
-        likes: 9,
-        comments: 2,
-        imgs: 0
-      },
-      {
-        id: '0424-15',
-        time: '21분 전',
-        text: '숙소 문제는 계속 나오는 얘긴데 인원이 늘어나면 더 심해질 겁니다. 신차종 도입 이야기할 때 숙소와 후생복지도 같이 묶어야 합니다. 사진도 올리고 싶은데 일단 시안이라 회색 박스로 표시합니다.',
-        likes: 6,
-        comments: 1,
-        imgs: 2
-      }
-    ];
+    <div class="sh"><h3>전체 안건</h3><small style="font-size:11px;color:var(--t3);">공개 가능한 안건만 표시</small></div>
+    <div class="sboard">
+      <div class="sitem">
+        <div class="sit-top"><h4>경정비 차고 환풍·폭염 대응</h4><span class="badge b-wait">검토중</span></div>
+        <p>하절기 작업환경과 환풍시설, 휴식권 보장 문제를 노사협의·산보위로 연계합니다.</p>
+        <div class="pbar"><div class="pbar-fill" style="width:35%"></div></div>
+        <div class="smeta"><span class="stag">노사협의</span><span class="stag">산보위 연계</span><span>업데이트: 04.22</span></div>
+      </div>
+      <div class="sitem">
+        <div class="sit-top"><h4>근골격계 유해요인 조사</h4><span class="badge b-wait">결과대기</span></div>
+        <p>반복작업, 중량물 취급, 신차종 도입 영향을 함께 검토 중입니다.</p>
+        <div class="pbar"><div class="pbar-fill" style="width:65%"></div></div>
+        <div class="smeta"><span class="stag">산보위</span><span>조사결과 정리중</span></div>
+      </div>
+      <div class="sitem">
+        <div class="sit-top"><h4>숙소·후생복지시설 확충</h4><span class="badge b-long">장기과제</span></div>
+        <p>교대인력 증가와 정비물량 확대에 따른 생활조건 개선 요구입니다.</p>
+        <div class="pbar"><div class="pbar-fill" style="width:18%"></div></div>
+        <div class="smeta"><span class="stag">노사협의</span><span class="stag">T/F 병행</span></div>
+      </div>
+      <div class="sitem">
+        <div class="sit-top"><h4>신차종 교육훈련 체계</h4><span class="badge b-ing">진행중</span></div>
+        <p>EMU 도입에 따른 교육과정, 시간, 강사, 시설 확보를 실무 협의 중입니다.</p>
+        <div class="pbar"><div class="pbar-fill" style="width:40%"></div></div>
+        <div class="smeta"><span class="stag">실무협의</span><span>다음: 5월 협의</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    let posts = JSON.parse(localStorage.getItem('goyangFeedPosts') || 'null') || initialPosts;
+<!-- ═══ 웹진 ═══ -->
+<section id="webzine" class="scr">
+  <div class="sh"><h3>웹진</h3><small style="font-size:11px;color:var(--t3);">기획·속보·성명</small></div>
+  <article class="wzcard new" onclick="T('기사로 이동')">
+    <div class="wzthumb" style="background:linear-gradient(135deg,#fff0f0,#fef9ec);color:var(--r);">신춘<br>기획</div>
+    <div><h4>[기획] EMU의 시대, 우리는 무엇을 바꿔야 하는가</h4>
+    <p>기술의 변화는 차량만 바꾸지 않는다. 노동의 기준과 책임의 무게까지 바꾼다.</p>
+    <div class="wzmeta">2026.04.24</div></div>
+  </article>
+  <article class="wzcard" onclick="T('기사로 이동')">
+    <div class="wzthumb">신년<br>안전</div>
+    <div><h4>[Special] 국토부의 안전강화정책, 왜 늘 사람부터 세우는가</h4>
+    <p>1,000명 안전책임자 지정이 바꾸려는 '안전'의 방향을 묻는다.</p>
+    <div class="wzmeta">2026.01.30</div></div>
+  </article>
+  <article class="wzcard" onclick="T('기사로 이동')">
+    <div class="wzthumb">CCTV</div>
+    <div><h4>[Special] 사고는 시스템 문제인데, 왜 사람부터 찍는가</h4>
+    <p>운전실 CCTV가 바꾸려는 '안전'의 방향을 묻는다.</p>
+    <div class="wzmeta">2026.01.27</div></div>
+  </article>
+  <article class="wzcard" onclick="T('기사로 이동')">
+    <div class="wzthumb">임협<br>특보</div>
+    <div><h4>[임협인준특보] 압도적 찬성으로 임금협약 체결</h4>
+    <p>조합원 93.2% 참여, 97.76% 찬성… 성과급 정상화 합의 관철</p>
+    <div class="wzmeta">2026.01.06</div></div>
+  </article>
+  <div style="text-align:center;padding:6px 0;">
+    <button class="btn btn-p btn-sm" onclick="T('전체 목록으로 이동')">기사 전체 목록 보기</button>
+  </div>
+</section>
 
-    function savePosts() {
-      localStorage.setItem('goyangFeedPosts', JSON.stringify(posts));
-    }
+<!-- ═══ 자료실 ═══ -->
+<section id="archive" class="scr">
+  <div class="sh"><h3>자료실</h3><small style="font-size:11px;color:var(--t3);">공개 가능한 자료만 게시</small></div>
+  <div class="archive-cat">
+    <div class="acat" onclick="T('단체협약 목록')"><div class="acat-ico">📄</div><div class="acat-txt"><h4>단체협약</h4><p>3건</p></div></div>
+    <div class="acat" onclick="T('노사협의 결과')"><div class="acat-ico">🤝</div><div class="acat-txt"><h4>노사협의 결과</h4><p>12건</p></div></div>
+    <div class="acat" onclick="T('산보위 결과')"><div class="acat-ico">🦺</div><div class="acat-txt"><h4>산보위 결과</h4><p>8건</p></div></div>
+    <div class="acat" onclick="T('EMU 자료')"><div class="acat-ico">🚄</div><div class="acat-txt"><h4>EMU 자료</h4><p>5건</p></div></div>
+    <div class="acat" onclick="T('교육자료')"><div class="acat-ico">📚</div><div class="acat-txt"><h4>교육자료</h4><p>9건</p></div></div>
+    <div class="acat" onclick="T('성명서·보도자료')"><div class="acat-ico">📢</div><div class="acat-txt"><h4>성명서</h4><p>6건</p></div></div>
+  </div>
+  <div class="sh" style="margin-top:4px;"><h3>최근 등록 자료</h3></div>
+  <div class="afile" onclick="T('자료 다운로드')"><div class="afile-ico">📄</div><div><h4>2025년 임금협약서</h4><p>PDF · 2026.01.06 · 조합원 공개</p></div></div>
+  <div class="afile" onclick="T('자료 다운로드')"><div class="afile-ico">🦺</div><div><h4>근골격계 유해요인 조사 중간보고</h4><p>PDF · 2026.04.10 · 조합원 공개</p></div></div>
+  <div class="afile" onclick="T('자료 다운로드')"><div class="afile-ico">🚄</div><div><h4>EMU 도입 관련 지부 입장문</h4><p>PDF · 2026.04.24 · 전체 공개</p></div></div>
+</section>
 
-    function renderPosts() {
-      const feedList = document.getElementById('feedList');
-      const homeFeed = document.getElementById('homeFeed');
-      if (feedList) feedList.innerHTML = posts.map(postTemplate).join('');
-      if (homeFeed) homeFeed.innerHTML = posts.slice(0,2).map(postTemplate).join('');
-    }
+<!-- ═══ 나눔·제안 (통합) ═══ -->
+<section id="ns" class="scr">
 
-    function postTemplate(p) {
-      const needsMore = p.text.length > 120;
-      const imgs = p.imgs ? `<div class="post-imgs">${Array.from({length:p.imgs}).map((_,i)=>`<div>사진 ${i+1}</div>`).join('')}</div>` : '';
-      return `
-        <article class="post">
-          <div class="post-head"><span class="anon">익명 ${p.id}</span><span>${p.time}</span></div>
-          <div class="preview ${needsMore ? 'fade-preview' : ''}" id="post-${p.id}">${escapeHtml(p.text)}</div>
-          ${needsMore ? `<button class="more" onclick="toggleMore('${p.id}', this)">더보기</button>` : ''}
-          ${imgs}
-          <div class="post-actions">
-            <button onclick="toast('공감 처리 시안입니다')">공감 ${p.likes}</button>
-            <button onclick="toast('댓글 화면 시안입니다')">댓글 ${p.comments}</button>
-            <button onclick="toast('신고가 접수되면 누적 기준에 따라 임시 블라인드됩니다')">신고</button>
-          </div>
-        </article>`;
-    }
+  <!-- 서브탭 바 -->
+  <div class="subtab-bar">
+    <button class="stab on" onclick="showSub('ns','share-pane',this)">🌱 나눔터</button>
+    <button class="stab" onclick="showSub('ns','suggest-pane',this)">💡 개선제안</button>
+  </div>
 
-    function toggleMore(id, btn) {
-      const el = document.getElementById(`post-${id}`);
-      if (!el) return;
-      el.classList.toggle('fade-preview');
-      btn.textContent = el.classList.contains('fade-preview') ? '더보기' : '접기';
-    }
+  <!-- 나눔터 서브패널 -->
+  <div class="sub-pane on" id="share-pane">
+    <div class="share-hero">
+      <h4>현장 나눔터</h4>
+      <p>조합원 간 무료 나눔·사이즈 교환 전용 공간입니다.<br>금전 거래 없이 서로 필요한 것을 나눕니다.</p>
+    </div>
 
-    function addPost() {
-      const text = document.getElementById('postText').value.trim();
-      if (!text) return toast('내용을 입력해 주십시오');
-      if (text.length > 2000) return toast('2,000자 이내로 작성해 주십시오');
-      if (/\b(주민번호|몰카|불법촬영|PDF공유|죽여버)/i.test(text)) {
-        return toast('시안: 금칙어 또는 위험 표현으로 검토 대기 처리됩니다');
-      }
-      const now = new Date();
-      const mmdd = String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0');
-      const next = String(posts.length + 11).padStart(2,'0');
-      posts.unshift({ id: `${mmdd}-${next}`, time: '방금 전', text, likes: 0, comments: 0, imgs: 0 });
-      document.getElementById('postText').value = '';
-      document.getElementById('counter').textContent = '0 / 2000';
-      savePosts();
-      renderPosts();
-      toast('익명 글이 등록되었습니다. 이 시안은 내 브라우저에만 저장됩니다');
-    }
+    <div class="share-rule">
+      <strong>✅ 가능:</strong> 개인 소유 작업복 무료 나눔, 사이즈 교환, 신규 입사자 치수 수배, 개인 생활용품 나눔<br>
+      <strong>❌ 금지:</strong> 금전 매매 · 회사 비품·공구·안전보호구(안전화·안전모·장갑·마스크 등) · 외부인 거래
+    </div>
 
-    function unlockFeed() {
-      const input = document.getElementById('passInput').value;
-      if (input !== 'gy2026') return toast('비밀번호가 다릅니다. 시안 비밀번호는 gy2026입니다');
-      document.getElementById('lockedBox').style.display = 'none';
-      document.getElementById('feedArea').style.display = 'block';
-      toast('익명광장 시안에 입장했습니다');
-    }
+    <!-- 글쓰기 버튼 -->
+    <div class="share-compose" onclick="T('나눔 글 작성 화면으로 이동합니다')">
+      <div class="sc-ico">🌱</div>
+      <h4>나눔 글 올리기</h4>
+      <p>사진 + 짧은 설명만으로 바로 올릴 수 있습니다</p>
+    </div>
 
-    function showScreen(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.querySelectorAll('[data-screen]').forEach(b => b.classList.toggle('active', b.dataset.screen === id));
-      window.scrollTo({top:0, behavior:'smooth'});
-    }
+    <!-- 나눔 카드 목록 -->
+    <div class="sh"><h3>최근 나눔 글</h3><small style="font-size:11px;color:var(--t3);">무료 나눔 전용</small></div>
+    <div class="share-grid">
+      <div class="share-card" onclick="T('나눔 글 상세 보기')">
+        <div class="share-img">👔</div>
+        <div class="share-tag">나눔</div>
+        <h4>하복 상의 105<br>새것처럼 깨끗</h4>
+        <p>거의 안 입은 상태, 빠른 수령 가능</p>
+        <div class="share-meta">익명 0505-03 · 2분 전</div>
+      </div>
+      <div class="share-card" onclick="T('나눔 글 상세 보기')">
+        <div class="share-img">👖</div>
+        <div class="share-tag ex">교환</div>
+        <h4>동복 바지 31인치<br>32인치로 교환</h4>
+        <p>체형 변화로 안 맞아서 교환 희망</p>
+        <div class="share-meta">익명 0504-11 · 1시간 전</div>
+      </div>
+      <div class="share-card" onclick="T('나눔 글 상세 보기')">
+        <div class="share-img">🥾</div>
+        <div class="share-tag">나눔</div>
+        <h4>신규 입사자<br>270 구합니다</h4>
+        <p>신규 입사 예정, 치수 맞으시면 연락</p>
+        <div class="share-meta">익명 0503-08 · 어제</div>
+      </div>
+      <div class="share-card" onclick="T('나눔 글 상세 보기')">
+        <div class="share-img">🧥</div>
+        <div class="share-tag">나눔</div>
+        <h4>방한 조끼 M<br>2벌 나눔</h4>
+        <p>세탁 완료, 필요하신 분 먼저 연락</p>
+        <div class="share-meta">익명 0502-15 · 어제</div>
+      </div>
+    </div>
+  </div>
 
-    document.querySelectorAll('[data-screen]').forEach(btn => {
-      btn.addEventListener('click', () => showScreen(btn.dataset.screen));
-    });
+  <!-- 개선제안 서브패널 -->
+  <div class="sub-pane" id="suggest-pane">
+    <div class="suggest-hero">
+      <h4>개선제안</h4>
+      <p>홈페이지 개선, 오류 신고, 게시판 개설 요청,<br>웹진 기사 제안 등을 접수합니다.</p>
+    </div>
 
-    const textarea = document.getElementById('postText');
-    if (textarea) {
-      textarea.addEventListener('input', () => {
-        document.getElementById('counter').textContent = `${textarea.value.length} / 2000`;
-      });
-    }
+    <div class="suggest-grid">
+      <div class="sgcard" onclick="T('홈페이지 개선 제안')"><div class="sg-ico">🛠</div><h4>홈페이지 개선</h4><p>메뉴·화면·기능 개선</p></div>
+      <div class="sgcard" onclick="T('오류 신고')"><div class="sg-ico">🔧</div><h4>오류 신고</h4><p>링크·표시 오류</p></div>
+      <div class="sgcard" onclick="T('게시판 개설 요청')"><div class="sg-ico">📌</div><h4>게시판 개설</h4><p>풋살·낚시·취미</p></div>
+      <div class="sgcard" onclick="T('동아리 게시판 요청')"><div class="sg-ico">⚽</div><h4>동아리 게시판</h4><p>모임별 개설 신청</p></div>
+      <div class="sgcard" onclick="T('웹진 기사 제안')"><div class="sg-ico">📰</div><h4>기사 주제 제안</h4><p>웹진 아이디어</p></div>
+      <div class="sgcard" onclick="T('기능 추가 요청')"><div class="sg-ico">✨</div><h4>기능 추가 요청</h4><p>검색·알림 등</p></div>
+    </div>
 
-    function escapeHtml(str) {
-      return str.replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-    }
+    <div class="form-card" style="margin-top:2px;">
+      <h3>제안 접수하기</h3>
+      <div class="frow">
+        <label>분류 *</label>
+        <select>
+          <option>홈페이지 개선 제안</option>
+          <option>오류 신고</option>
+          <option>게시판 개설 요청</option>
+          <option>동아리 게시판 요청</option>
+          <option>웹진 기사 제안</option>
+          <option>기능 추가 요청</option>
+          <option>기타</option>
+        </select>
+      </div>
+      <div class="frow">
+        <label>제목 *</label>
+        <input type="text" placeholder="제안 내용을 한 줄로 요약해 주세요"/>
+      </div>
+      <div class="frow">
+        <label>내용 *</label>
+        <textarea placeholder="구체적으로 작성해 주십시오." style="min-height:80px;"></textarea>
+      </div>
+      <button class="btn btn-p" style="width:100%;" onclick="T('제안이 접수되었습니다. 검토 후 반영하겠습니다')">제안 접수</button>
+    </div>
+  </div>
+</section>
 
-    function toast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2300);
-    }
+<!-- ── BOTTOM NAV ── -->
+<nav class="bnav">
+  <button class="nb on" data-s="home"><span class="ni">⌂</span>홈</button>
+  <button class="nb" data-s="feed"><span class="ni">💬</span>광장</button>
+  <button class="nb" data-s="rp"><span class="ni">📣</span>제보·진행</button>
+  <button class="nb" data-s="webzine"><span class="ni">📰</span>웹진</button>
+  <button class="nb" data-s="archive"><span class="ni">📁</span>자료실</button>
+  <button class="nb" data-s="ns"><span class="ni">🌱</span>나눔·제안</button>
+</nav>
 
-    renderPosts();
-  </script>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ── 데이터 ── */
+const SEED=[
+  {id:'0424-17',t:'방금 전',body:'EMU 들어오는 건 좋은데 교육, 숙소, 인력 얘기가 같이 안 나오면 결국 현장이 다 떠안는 거 아닌가요.',lk:12,cm:3,imgs:0,ok:true},
+  {id:'0424-16',t:'8분 전',body:'노사협의회 안건 진행상황이 한눈에 보이면 좋겠습니다. 진행판 생기면 자주 들어올 것 같습니다.',lk:9,cm:2,imgs:0,ok:true},
+  {id:'0424-15',t:'21분 전',body:'숙소 문제는 계속 나오는 얘긴데 인원이 늘어나면 더 심해집니다. EMU 이야기 나올 때 함께 묶어야 합니다.',lk:6,cm:1,imgs:2,ok:true},
+  {id:'0424-14',t:'47분 전',body:'이 글은 AI 실명 의심 판정으로 임시 블라인드 처리된 예시입니다.',lk:0,cm:0,imgs:0,ok:false,blind:true},
+];
+let posts=JSON.parse(localStorage.getItem('gp4')||'null')||SEED;
+function save(){localStorage.setItem('gp4',JSON.stringify(posts));}
+function esc(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function mkPost(p){
+  if(p.blind) return`<div class="blinded-box">🚫 임시 블라인드 처리된 게시물입니다 (운영진 검토 중)</div>`;
+  const long=p.body.length>120;
+  const imgs=p.imgs?`<div class="post-imgs">${[...Array(p.imgs)].map((_,i)=>`<div class="pimg">사진${i+1}</div>`).join('')}</div>`:'';
+  const aiL=p.ok!==undefined?(p.ok?`<span class="ai-ok">AI통과</span>`:`<span class="ai-warn">AI검토대기</span>`):'';
+  return`<article class="post">
+  <div class="post-head"><span><span class="anon">익명 ${p.id}</span>${aiL}</span><span class="post-time">${p.t}</span></div>
+  <div class="post-body${long?' cl':''}" id="pb${p.id}">${esc(p.body)}</div>
+  ${long?`<button class="more" onclick="more('${p.id}',this)">더보기</button>`:''}
+  ${imgs}
+  <div class="post-foot">
+    <button class="pfbtn" onclick="like('${p.id}',this)">♡ ${p.lk}</button>
+    <button class="pfbtn" onclick="T('댓글 기능 시안')">💬 ${p.cm}</button>
+    <button class="pfbtn" onclick="T('신고 접수 · 3회 누적 시 자동 블라인드')">🚩 신고</button>
+  </div></article>`;
+}
+
+function render(){
+  const fl=document.getElementById('feedList');
+  const hp=document.getElementById('homePreview');
+  if(fl) fl.innerHTML=posts.map(mkPost).join('');
+  if(hp) hp.innerHTML=posts.filter(p=>!p.blind).slice(0,2).map(p=>`
+    <div class="fmini" onclick="go('feed')">
+      <div class="fmini-head"><span class="anon">익명 ${p.id}</span><span style="color:var(--t3);font-size:11.5px;">${p.t}</span></div>
+      <div class="fmini-body">${esc(p.body)}</div>
+      <div class="fmini-foot"><span>공감 ${p.lk}</span><span>💬 ${p.cm}</span></div>
+    </div>`).join('');
+}
+
+function more(id,btn){
+  const el=document.getElementById('pb'+id);
+  el.classList.toggle('cl');
+  btn.textContent=el.classList.contains('cl')?'더보기':'접기';
+}
+function like(id,btn){
+  const p=posts.find(x=>x.id===id);if(!p)return;
+  p.lk++;btn.classList.add('liked');btn.textContent=`♥ ${p.lk}`;save();
+}
+
+const BAN=/주민번호|불법촬영|몰카|죽여버|개새끼|씨발|저작권침해|회사내부자료/i;
+function submitPost(){
+  const ta=document.getElementById('postTxt');
+  const txt=ta.value.trim();
+  if(!txt){T('내용을 입력해 주세요');return;}
+  if(BAN.test(txt)){T('🤖 AI 판정: 위험표현 감지 → 자동 차단');return;}
+  const now=new Date();
+  const id=`${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}-${String(posts.length+20).padStart(2,'0')}`;
+  posts.unshift({id,t:'방금 전',body:txt,lk:0,cm:0,imgs:mockImgs,ok:true});
+  ta.value='';mockImgs=0;
+  document.getElementById('charCt').textContent='0 / 2000';
+  renderImgPrev();save();render();
+  T('✅ AI검열 통과 · 익명 글이 등록되었습니다');
+}
+
+let mockImgs=0;
+function addPhotoMock(){
+  if(mockImgs>=3){T('사진은 최대 3장');return;}
+  mockImgs++;renderImgPrev();T(`📷 사진 ${mockImgs}장 (EXIF 제거·자동압축 적용)`);
+}
+function renderImgPrev(){
+  const c=document.getElementById('imgPrev');if(!c)return;
+  let h='';
+  for(let i=0;i<mockImgs;i++) h+=`<div class="img-prev-item">사진${i+1}<div class="rm" onclick="removeImg(${i})">×</div></div>`;
+  if(mockImgs<3) h+=`<div class="add-photo" onclick="addPhotoMock()"><div>🖼</div>사진 추가</div>`;
+  c.innerHTML=h;
+}
+function removeImg(){mockImgs=Math.max(0,mockImgs-1);renderImgPrev();}
+
+function unlock(){
+  if(document.getElementById('passIn').value!=='gy2026'){T('비밀번호가 다릅니다 (시안: gy2026)');return;}
+  document.getElementById('lockBox').style.display='none';
+  const fa=document.getElementById('feedArea');
+  fa.style.display='flex';render();
+  T('익명광장에 입장했습니다');
+}
+document.getElementById('passIn').addEventListener('keydown',e=>{if(e.key==='Enter')unlock();});
+document.getElementById('postTxt').addEventListener('input',function(){
+  document.getElementById('charCt').textContent=`${this.value.length} / 2000`;
+});
+
+/* ── 화면 전환 ── */
+function go(s){
+  document.querySelectorAll('.scr').forEach(el=>el.classList.remove('on'));
+  const sc=document.getElementById(s);if(sc) sc.classList.add('on');
+  document.querySelectorAll('[data-s]').forEach(b=>{
+    const on=b.dataset.s===s;
+    b.classList.toggle('on',on);
+    if(on && (s==='ns')) b.classList.add('green');
+    else b.classList.remove('green');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.s)));
+
+/* ── 서브탭 전환 ── */
+function showSub(screenId, paneId, btn){
+  const screen=document.getElementById(screenId);if(!screen)return;
+  screen.querySelectorAll('.sub-pane').forEach(p=>p.classList.remove('on'));
+  screen.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));
+  const pane=document.getElementById(paneId);if(pane) pane.classList.add('on');
+  if(btn) btn.classList.add('on');
+  else{
+    // 버튼 없이 호출 시 첫 번째 서브탭 활성
+    const tabs=screen.querySelectorAll('.stab');
+    tabs.forEach(t=>{ if(t.getAttribute('onclick')&&t.getAttribute('onclick').includes(paneId)) t.classList.add('on'); });
+  }
+}
+
+/* ── Toast ── */
+let tt;
+function T(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('on');
+  clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('on'),2600);
+}
+
+render();
+</script>
 </body>
 </html>
